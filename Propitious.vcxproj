@@ -163,7 +163,6 @@
     <ClInclude Include="include\Propitious.hpp" />
     <ClInclude Include="include\Memory\Allocator.hpp" />
     <ClInclude Include="include\Memory\Memory.hpp" />
-    <ClInclude Include="include\Propitious\Memory\Allocators\TempAllocator.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Builder.cpp" />

@@ -1,5 +1,5 @@
-/*#ifndef PROPITIOUS_MEMORY_CONTAINERS_SET_HPP
-#define PROPITIOUS_MEMORY_CONTAINERS_SET_HPP
+#ifndef PROPITIOUS_MEMORY_CONTAINERS_PAIR_HPP
+#define PROPITIOUS_MEMORY_CONTAINERS_PAIR_HPP
 
 #include <Propitious/Common.hpp>
 #include <Propitious/Memory/Allocator.hpp>
@@ -15,19 +15,13 @@ namespace Propitious
 			using vol = Allocator::vol;
 		}
 
-		template <typename T>
-		struct Data
+		template <typename A, typename B>
+		struct Pair
 		{
-			T data;
-		};
-
-		template <typename... Args>
-		struct Set
-		{
-			Array<Data*> array;
-
+			A first;
+			B second;
 		};
 	}
 }
 
-#endif*/
+#endif

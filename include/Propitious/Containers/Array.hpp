@@ -7,40 +7,37 @@
 
 namespace Propitious
 {
-	namespace Memory
+	namespace
 	{
-		namespace
+		using vol = Memory::Allocator::vol;
+	}
+
+	template <typename T>
+	struct Array
+	{
+		Array(Memory::Allocator& allocator = defaultAllocator());
+
+		~Array();
+
+		Array(const Array& other);
+
+		Array& Array::operator=(const Array& other);
+
+		inline T& operator[](vol index)
 		{
-			using vol = Allocator::vol;
+			return data[index];
 		}
 
-		template <typename T>
-		struct Array
+		inline const T& operator[](vol index) const
 		{
-			Array(Allocator& allocator = defaultAllocator());
+			return data[index];
+		}
 
-			~Array();
-
-			Array(const Array& other);
-
-			Array& Array::operator=(const Array& other);
-
-			T& operator[](vol index)
-			{
-				return data[index];
-			}
-
-			const T& operator[](vol index) const
-			{
-				return data[index];
-			}
-
-			Allocator* allocator;
-			vol length;
-			vol capacity;
-			T* data;
-		};
-	}
+		Memory::Allocator* allocator;
+		vol length;
+		vol capacity;
+		T* data;
+	};
 }
 
 #include <Propitious/Containers/Helpers/Array.hpp>

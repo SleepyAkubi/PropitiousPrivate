@@ -8,17 +8,15 @@
 
 namespace Propitious
 {
-	namespace Memory
-	{
 		namespace
 		{
-			using vol = Allocator::vol;
+			using vol = Memory::Allocator::vol;
 		}
 
 		template <typename T>
 		struct Queue
 		{
-			Queue(Allocator& a = defaultAllocator());
+			Queue(Memory::Allocator& a = defaultAllocator());
 
 			T& operator[](vol index);
 			const T& operator[](vol index) const;
@@ -27,7 +25,6 @@ namespace Propitious
 			vol length;
 			vol offset;
 		};
-	}
 }
 
 #include <Propitious\Containers\Helpers\Queue.hpp>

@@ -1,3 +1,7 @@
+#include "../src/Containers/Helpers/Array.cpp"
+#include "../src/Containers/Helpers/HashMap.cpp"
+#include "../src/Containers/Helpers/Queue.cpp"
+
 #include "../src/Math/Functions/Matrix.cpp"
 #include "../src/Math/Functions/Trivial.cpp"
 
