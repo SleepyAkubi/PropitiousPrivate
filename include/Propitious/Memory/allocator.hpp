@@ -13,14 +13,14 @@ namespace Propitious
 		class propexp Allocator : private NonCopyable
 		{
 		public:
-			#ifdef PROPITIOUS_ARCHITECTURE_X64
+#ifdef PROPITIOUS_ARCHITECTURE_X64
 			using vol = u32;
-			#elif PROPITIOUS_ARCHITECTURE_X32
+#elif PROPITIOUS_ARCHITECTURE_X32
 			using vol = usize;
-			#else
-			#pragma message("Unknown Architecture! Memory size may be wrong!")
+#else
+#pragma message("Unknown Architecture! Memory size may be wrong!")
 			using vol = usize;
-			#endif
+#endif
 
 			static const vol defaultAlignment = 4;
 			static const vol notTracked = (vol)(-1);
@@ -53,6 +53,20 @@ namespace Propitious
 		{
 			const Allocator::vol Vol = (Allocator::vol)(-1);
 		}
+
+		propexp Allocator& defaultAllocator();
+	}
+
+	void* operator new(Propitious::usize size) throw(std::bad_alloc)
+	{
+		Propitious::Memory::Allocator& allocator = Propitious::Memory::defaultAllocator();
+		return allocator.allocate(size);
+	}
+
+	void operator delete(void* size) throw()
+	{
+		Propitious::Memory::Allocator& allocator = Propitious::Memory::defaultAllocator();
+		return allocator.deallocate(size);
 	}
 }
 

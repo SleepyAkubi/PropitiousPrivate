@@ -27,9 +27,9 @@ namespace Propitious
 		static  T GoldenRatio();
 
 		static T Bit() { return (T)1; }
-		static T Byte() { return (T)8; }
+		static T Byte() { return (T)8; } // What's next with the metric stuff, 10 bits in a byte? :s
 
-#ifndef RUBBISH_METRIC_UNITS
+#ifndef PROPITIOUS_RUBBISH_METRIC_UNITS
 		static T KilobyteAsBytes()  { return (T)(1024 ^ 1); }
 		static T MegabyteAsBytes()  { return (T)(1024 ^ 2); }
 		static T GigabyteAsBytes()  { return (T)(1024 ^ 3); }
@@ -50,14 +50,14 @@ namespace Propitious
 		static T YottabyteAsBytes() { return (T)(1000 ^ 8); }
 #endif
 
-		static T KilobyteAsBits()  { return (T)(KilobyteAsBytes()  * 8); }
-		static T MegabyteAsBits()  { return (T)(MegabyteAsBytes()  * 8); }
-		static T GigabyteAsBits()  { return (T)(GigabyteAsBytes()  * 8); }
-		static T TerabyteAsBits()  { return (T)(TerabyteAsBytes()  * 8); }
-		static T PetabyteAsBits()  { return (T)(PetabyteAsBytes()  * 8); }
-		static T ExabyteAsBits()   { return (T)(ExabyteAsBytes()   * 8); }
-		static T ZetabyteAsBits()  { return (T)(ZetabyteAsBytes()  * 8); }
-		static T YottabyteAsBits() { return (T)(YottabyteAsBytes() * 8); }
+		static T KilobyteAsBits()  { return (T)(KilobyteAsBytes()  * Byte()); }
+		static T MegabyteAsBits()  { return (T)(MegabyteAsBytes()  * Byte()); }
+		static T GigabyteAsBits()  { return (T)(GigabyteAsBytes()  * Byte()); }
+		static T TerabyteAsBits()  { return (T)(TerabyteAsBytes()  * Byte()); }
+		static T PetabyteAsBits()  { return (T)(PetabyteAsBytes()  * Byte()); }
+		static T ExabyteAsBits()   { return (T)(ExabyteAsBytes()   * Byte()); }
+		static T ZetabyteAsBits()  { return (T)(ZetabyteAsBytes()  * Byte()); }
+		static T YottabyteAsBits() { return (T)(YottabyteAsBytes() * Byte()); }
 	};
 
 	template<>

@@ -160,4 +160,6 @@ inline T pseudo_cast(const U& x)
 
 #define PROPITIOUS_HASH_MURMUR
 
+#include <Propitious/Memory/Allocator.hpp>
+
 #endif
