@@ -10,10 +10,10 @@ namespace Propitious
 		using vol = Allocator::vol;
 	}
 
-	propexp Allocator& defaultAllocator();
+	PROPITIOUS_EXPORT Allocator& defaultAllocator();
 
-	propexp void init();
-	propexp void shutdown();
+	PROPITIOUS_EXPORT void init();
+	PROPITIOUS_EXPORT void shutdown();
 
 	inline void* alignForward(void* pointer, Allocator::vol alignment)
 	{

@@ -11,7 +11,7 @@
 
 namespace Propitious
 {
-	class propexp Time
+	class PROPITIOUS_EXPORT Time
 	{
 	public:
 		Time()

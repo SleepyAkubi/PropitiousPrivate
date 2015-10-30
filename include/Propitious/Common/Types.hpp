@@ -1,7 +1,7 @@
-#ifndef PROPITIOUS_TYPES_HPP
-#define PROPITIOUS_TYPES_HPP
+#ifndef PROPITIOUS_COMMON_TYPES_HPP
+#define PROPITIOUS_COMMON_TYPES_HPP
 
-#include <Propitious/Common.hpp>
+#include <Propitious/Common/Architectures.hpp>
 
 namespace Propitious
 {
@@ -27,22 +27,15 @@ namespace Propitious
 #if !PROPITIOUS_MAXINT_BITS
 #elif PROPITIOUS_MAXINT_BITS == 64
 	using usize = u64;
-#elif PROPITIOUS_MAXINT_BITS == 32
-	using usize = u32;
-#elif PROPITIOUS_MAXINT_BITS == 16
-	using usize = u16;
-#elif PROPITIOUS_MAXINT_BITS == 8
-	using usize = u8;
-#endif
-
-#if !PROPITIOUS_MAXINT_BITS
-#elif PROPITIOUS_MAXINT_BITS == 64
 	using isize = i64;
 #elif PROPITIOUS_MAXINT_BITS == 32
+	using usize = u32;
 	using isize = i32;
 #elif PROPITIOUS_MAXINT_BITS == 16
+	using usize = u16;
 	using isize = i16;
 #elif PROPITIOUS_MAXINT_BITS == 8
+	using usize = u8;
 	using isize = i8;
 #endif
 
@@ -50,11 +43,6 @@ namespace Propitious
 	using uptr = usize;
 
 	using b8 = bool;
-
-	old void foo()
-	{
-		
-	}
 }
 
 #endif

@@ -8,7 +8,7 @@
 namespace Propitious
 {
 
-	enum class propexp ImageFormat
+	enum class PROPITIOUS_EXPORT ImageFormat
 	{
 		None,
 		Grayscale,
@@ -19,7 +19,7 @@ namespace Propitious
 		NumFormats
 	};
 
-	struct propexp Image
+	struct PROPITIOUS_EXPORT Image
 	{
 		ImageFormat format = ImageFormat::None;
 		u32 width = 0;

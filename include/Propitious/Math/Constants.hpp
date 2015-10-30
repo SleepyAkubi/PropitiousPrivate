@@ -7,7 +7,7 @@
 namespace Propitious
 {
 	template <class T>
-	struct propexp Constants
+	struct PROPITIOUS_EXPORT Constants
 	{
 		static  T Epsilon() { return std::numeric_limits<T>::epsilon(); }
 
@@ -61,7 +61,7 @@ namespace Propitious
 	};
 
 	template<>
-	struct propexp Constants<f32>
+	struct PROPITIOUS_EXPORT Constants<f32>
 	{
 		Constants() = delete;
 
@@ -84,7 +84,7 @@ namespace Propitious
 	};
 
 	template<>
-	struct propexp Constants<f64>
+	struct PROPITIOUS_EXPORT Constants<f64>
 	{
 		Constants() = delete;
 

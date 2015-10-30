@@ -6,7 +6,7 @@
 
 namespace Propitious
 {
-	struct propexp Matrix4
+	struct PROPITIOUS_EXPORT Matrix4
 	{
 		union
 		{
@@ -20,26 +20,26 @@ namespace Propitious
 		static const Matrix4 Identity;
 	};
 
-	propexp bool operator==(const Matrix4& a, const Matrix4& b);
-	propexp bool operator!=(const Matrix4& a, const Matrix4& b);
-	propexp Matrix4 operator+(const Matrix4& a, const Matrix4& b);
-	propexp Matrix4 operator-(const Matrix4& a, const Matrix4& b);
-	propexp Matrix4 operator*(const Matrix4& a, const Matrix4& b);
-	propexp Vector4 operator*(const Matrix4& matrix, const Vector4& vector);
-	propexp Vector4 operator*(const Vector4& vector, const Matrix4& matrix);
-	propexp Matrix4 operator*(const Matrix4& matrix, f32 scalar);
-	propexp Matrix4 operator/(const Matrix4& matrix, f32 scalar);
-	propexp Matrix4 operator*(f32 scalar, const Matrix4& matrix);
-	propexp Matrix4 operator/(f32 scalar, const Matrix4& matrix);
-	propexp Matrix4& operator+=(Matrix4& a, const Matrix4& b);
-	propexp Matrix4& operator-=(Matrix4& a, const Matrix4& b);
-	propexp Matrix4& operator*=(Matrix4& a, const Matrix4& b);
+	PROPITIOUS_EXPORT bool operator==(const Matrix4& a, const Matrix4& b);
+	PROPITIOUS_EXPORT bool operator!=(const Matrix4& a, const Matrix4& b);
+	PROPITIOUS_EXPORT Matrix4 operator+(const Matrix4& a, const Matrix4& b);
+	PROPITIOUS_EXPORT Matrix4 operator-(const Matrix4& a, const Matrix4& b);
+	PROPITIOUS_EXPORT Matrix4 operator*(const Matrix4& a, const Matrix4& b);
+	PROPITIOUS_EXPORT Vector4 operator*(const Matrix4& matrix, const Vector4& vector);
+	PROPITIOUS_EXPORT Vector4 operator*(const Vector4& vector, const Matrix4& matrix);
+	PROPITIOUS_EXPORT Matrix4 operator*(const Matrix4& matrix, f32 scalar);
+	PROPITIOUS_EXPORT Matrix4 operator/(const Matrix4& matrix, f32 scalar);
+	PROPITIOUS_EXPORT Matrix4 operator*(f32 scalar, const Matrix4& matrix);
+	PROPITIOUS_EXPORT Matrix4 operator/(f32 scalar, const Matrix4& matrix);
+	PROPITIOUS_EXPORT Matrix4& operator+=(Matrix4& a, const Matrix4& b);
+	PROPITIOUS_EXPORT Matrix4& operator-=(Matrix4& a, const Matrix4& b);
+	PROPITIOUS_EXPORT Matrix4& operator*=(Matrix4& a, const Matrix4& b);
 
-	propexp Matrix4 transpose(const Matrix4& m);
-	propexp f32 determinant(const Matrix4& m);
-	propexp Matrix4 inverse(const Matrix4& m);
+	PROPITIOUS_EXPORT Matrix4 transpose(const Matrix4& m);
+	PROPITIOUS_EXPORT f32 determinant(const Matrix4& m);
+	PROPITIOUS_EXPORT Matrix4 inverse(const Matrix4& m);
 
-	propexp std::ostream& operator<<(std::ostream& os, const Matrix4& m);
+	PROPITIOUS_EXPORT std::ostream& operator<<(std::ostream& os, const Matrix4& m);
 
 }
 

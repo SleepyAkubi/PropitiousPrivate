@@ -8,7 +8,7 @@
 
 namespace Propitious
 {
-	class propexp Allocator : private NonCopyable
+	class PROPITIOUS_EXPORT Allocator : private NonCopyable
 	{
 	public:
 		using vol = usize;
@@ -45,7 +45,7 @@ namespace Propitious
 		const Allocator::vol Vol = (Allocator::vol)(-1);
 	}
 
-	propexp Allocator& defaultAllocator();
+	PROPITIOUS_EXPORT Allocator& defaultAllocator();
 }
 
 #ifndef PROPITIOUS_DONT_MANAGE_MEMORY

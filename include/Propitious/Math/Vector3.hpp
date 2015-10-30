@@ -8,7 +8,7 @@
 
 namespace Propitious
 {
-	union propexp Vector3
+	union PROPITIOUS_EXPORT Vector3
 	{
 		struct
 		{
@@ -25,38 +25,38 @@ namespace Propitious
 		f32 data[3];
 	};
 
-	propexp Vector3 operator-(const Vector3& vector);
+	PROPITIOUS_EXPORT Vector3 operator-(const Vector3& vector);
 
-	propexp b8 operator==(const Vector3& a, const Vector3& b);
-	propexp b8 operator!=(const Vector3& a, const Vector3& b);
+	PROPITIOUS_EXPORT b8 operator==(const Vector3& a, const Vector3& b);
+	PROPITIOUS_EXPORT b8 operator!=(const Vector3& a, const Vector3& b);
 
-	propexp Vector3 operator+(const Vector3& a, const Vector3& b);
-	propexp Vector3 operator-(const Vector3& a, const Vector3& b);
-	propexp Vector3 operator*(const Vector3& vector, f32 scalar);
-	propexp Vector3 operator/(const Vector3& vector, f32 scalar);
+	PROPITIOUS_EXPORT Vector3 operator+(const Vector3& a, const Vector3& b);
+	PROPITIOUS_EXPORT Vector3 operator-(const Vector3& a, const Vector3& b);
+	PROPITIOUS_EXPORT Vector3 operator*(const Vector3& vector, f32 scalar);
+	PROPITIOUS_EXPORT Vector3 operator/(const Vector3& vector, f32 scalar);
 
-	propexp Vector3 operator+(f32 scalar, const Vector3& vector);
-	propexp Vector3 operator/(f32 scalar, const Vector3& vector);
+	PROPITIOUS_EXPORT Vector3 operator+(f32 scalar, const Vector3& vector);
+	PROPITIOUS_EXPORT Vector3 operator/(f32 scalar, const Vector3& vector);
 
-	propexp Vector3 operator+=(Vector3& a, const Vector3& b);
-	propexp Vector3 operator-=(Vector3& a, const Vector3& b);
-	propexp Vector3 operator*=(Vector3& vector, f32 scalar);
-	propexp Vector3 operator/=(Vector3& vector, f32 scalar);
+	PROPITIOUS_EXPORT Vector3 operator+=(Vector3& a, const Vector3& b);
+	PROPITIOUS_EXPORT Vector3 operator-=(Vector3& a, const Vector3& b);
+	PROPITIOUS_EXPORT Vector3 operator*=(Vector3& vector, f32 scalar);
+	PROPITIOUS_EXPORT Vector3 operator/=(Vector3& vector, f32 scalar);
 
-	propexp Vector3 operator*(const Vector3& a, const Vector3& b);
-	propexp Vector3 operator/(const Vector3& a, const Vector3& b);
+	PROPITIOUS_EXPORT Vector3 operator*(const Vector3& a, const Vector3& b);
+	PROPITIOUS_EXPORT Vector3 operator/(const Vector3& a, const Vector3& b);
 
-	propexp Vector3 operator*(f32 scalar, const Vector3& vector);
+	PROPITIOUS_EXPORT Vector3 operator*(f32 scalar, const Vector3& vector);
 
-	propexp f32 dot(const Vector3& a, const Vector3& b);
-	propexp Vector3 cross(const Vector3& a, const Vector3& b);
+	PROPITIOUS_EXPORT f32 dot(const Vector3& a, const Vector3& b);
+	PROPITIOUS_EXPORT Vector3 cross(const Vector3& a, const Vector3& b);
 
-	propexp f32 lengthSquared(const Vector3& a);
-	propexp f32 length(const Vector3& a);
+	PROPITIOUS_EXPORT f32 lengthSquared(const Vector3& a);
+	PROPITIOUS_EXPORT f32 length(const Vector3& a);
 
-	propexp Vector3 normalize(const Vector3& a);
+	PROPITIOUS_EXPORT Vector3 normalize(const Vector3& a);
 
-	propexp std::ostream& operator<<(std::ostream& os, const Vector3& v);
+	PROPITIOUS_EXPORT std::ostream& operator<<(std::ostream& os, const Vector3& v);
 }
 
 #endif

@@ -15,7 +15,7 @@ namespace Propitious
 
 	namespace Log
 	{
-		propexp void Print(const Logger& logger, const char* format, ...);
+		PROPITIOUS_EXPORT void Print(const Logger& logger, const char* format, ...);
 	}
 }
 

@@ -8,7 +8,7 @@
 
 namespace Propitious
 {
-	union propexp Vector4
+	union PROPITIOUS_EXPORT Vector4
 	{
 		struct
 		{
@@ -44,16 +44,16 @@ namespace Propitious
 
 	Vector4 operator/=(const Vector4 vector, f32 scalar);
 
-	propexp Vector4 operator*(f32 scalar, const Vector4& vector);
+	PROPITIOUS_EXPORT Vector4 operator*(f32 scalar, const Vector4& vector);
 
-	propexp f32 dot(const Vector4& a, const Vector4& b);
+	PROPITIOUS_EXPORT f32 dot(const Vector4& a, const Vector4& b);
 
-	propexp f32 lengthSquared(const Vector4& a);
-	propexp f32 length(const Vector4& a);
+	PROPITIOUS_EXPORT f32 lengthSquared(const Vector4& a);
+	PROPITIOUS_EXPORT f32 length(const Vector4& a);
 
-	propexp Vector4 normalize(const Vector4& a);
+	PROPITIOUS_EXPORT Vector4 normalize(const Vector4& a);
 
-	propexp std::ostream& operator<<(std::ostream& os, const Vector4& v);
+	PROPITIOUS_EXPORT std::ostream& operator<<(std::ostream& os, const Vector4& v);
 }
 
 #endif
