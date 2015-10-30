@@ -5,6 +5,7 @@
 
 namespace Propitious
 {
+	// Unfortunately char can be signed/unsigned per platform/compiler so we need *another* type. Seems silly to me.
 	using a8  = char;
 	using a16 = short;
 	using a32 = int;
@@ -49,6 +50,11 @@ namespace Propitious
 	using uptr = usize;
 
 	using b8 = bool;
+
+	old void foo()
+	{
+		
+	}
 }
 
 #endif
