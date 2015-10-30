@@ -5,120 +5,117 @@
 
 namespace Propitious
 {
-	namespace Memory
+	namespace {
+
+		using vol = Allocator::vol;
+
+		struct MemoryHeader
+		{
+			static const Allocator::vol PaddingValue = (vol)(-1);
+
+			vol size;
+		};
+	}
+
+	class HeapAllocator : public Allocator
 	{
-		namespace {
+	public:
+		HeapAllocator() : totalAllocatedSpace(0), allocationCount(0) {}
+		~HeapAllocator() {}
 
-			using vol = Allocator::vol;
+		virtual void* allocate(vol size, vol align = defaultAlignment)
+		{
+			mutex.lock();
+			const vol total = size + align + sizeof(MemoryHeader);
 
-			struct MemoryHeader
-			{
-				static const Allocator::vol PaddingValue = (vol)(-1);
+			MemoryHeader* header = (MemoryHeader*)std::malloc(total);
+			header->size = total;
 
-				vol size;
-			};
+			void* ptr = alignForward(header + 1, align);
+
+			pad(header, ptr);
+
+			totalAllocatedSpace += total;
+			allocationCount++;
+
+			mutex.unlock();
+
+			return ptr;
+		}
+		virtual void deallocate(void* pointer)
+		{
+			if (!pointer)
+				return;
+			mutex.lock();
+
+			MemoryHeader* head = header(pointer);
+
+			totalAllocatedSpace -= head->size;
+			allocationCount--;
+
+			free(head);
+			mutex.unlock();
+
+		}
+		virtual vol allocatedSize(void* pointer)
+		{
+			return header(pointer)->size;
 		}
 
-		class HeapAllocator : public Allocator
+		inline void pad(MemoryHeader* header, void* data)
 		{
-		public:
-			HeapAllocator() : totalAllocatedSpace(0), allocationCount(0) {}
-			~HeapAllocator() {}
+			vol* ptr = (vol*)(header + 1);
 
-			virtual void* allocate(vol size, vol align = defaultAlignment)
-			{
-				mutex.lock();
-				const vol total = size + align + sizeof(MemoryHeader);
+			while (ptr != data)
+				*ptr++ = MemoryHeader::PaddingValue;
+		}
 
-				MemoryHeader* header = (MemoryHeader*)std::malloc(total);
-				header->size = total;
+		inline MemoryHeader* header(const void* data)
+		{
+			const vol* ptr = (vol*)data;
+			ptr--;
 
-				void* ptr = alignForward(header + 1, align);
-
-				pad(header, ptr);
-
-				totalAllocatedSpace += total;
-				allocationCount++;
-
-				mutex.unlock();
-
-				return ptr;
-			}
-			virtual void deallocate(void* pointer)
-			{
-				if (!pointer)
-					return;
-				mutex.lock();
-
-				MemoryHeader* head = header(pointer);
-
-				totalAllocatedSpace -= head->size;
-				allocationCount--;
-
-				free(head);
-				mutex.unlock();
-
-			}
-			virtual vol allocatedSize(void* pointer)
-			{
-				return header(pointer)->size;
-			}
-
-			inline void pad(MemoryHeader* header, void* data)
-			{
-				vol* ptr = (vol*)(header + 1);
-
-				while (ptr != data)
-					*ptr++ = MemoryHeader::PaddingValue;
-			}
-
-			inline MemoryHeader* header(const void* data)
-			{
-				const vol* ptr = (vol*)data;
+			while (*ptr == MemoryHeader::PaddingValue)
 				ptr--;
 
-				while (*ptr == MemoryHeader::PaddingValue)
-					ptr--;
+			return (MemoryHeader*)ptr;
+		}
 
-				return (MemoryHeader*)ptr;
-			}
+		vol totalAllocatedSpace;
+		vol allocationCount;
+		std::mutex mutex;
+	};
 
-			vol totalAllocatedSpace;
-			vol allocationCount;
-			std::mutex mutex;
+	namespace
+	{
+		struct MemoryImplementation
+		{
+			const vol allocatorMemory = sizeof(HeapAllocator);
+			u8 buffer[sizeof(HeapAllocator)];
+
+			HeapAllocator* defaultAllocator = nullptr;
 		};
 
-		namespace
+		MemoryImplementation* memimp = new MemoryImplementation;
+	}
+
+	Allocator& defaultAllocator()
+	{
+		return *memimp->defaultAllocator;
+	}
+
+	void init()
+	{
+		u8* bufferPointer = memimp->buffer;
+		memimp->defaultAllocator = new (bufferPointer) HeapAllocator{};
+	}
+
+	void shutdown()
+	{
+		if (memimp)
 		{
-			struct MemoryImplementation
-			{
-				const vol allocatorMemory = sizeof(HeapAllocator);
-				u8 buffer[sizeof(HeapAllocator)];
-
-				HeapAllocator* defaultAllocator = nullptr;
-			};
-
-			MemoryImplementation* memimp = new MemoryImplementation;
-		}
-
-		Allocator& defaultAllocator()
-		{
-			return *memimp->defaultAllocator;
-		}
-
-		void init()
-		{
-			u8* bufferPointer = memimp->buffer;
-			memimp->defaultAllocator = new (bufferPointer) HeapAllocator{};
-		}
-
-		void shutdown()
-		{
-			if (memimp)
-			{
-				memimp->defaultAllocator->~HeapAllocator();
-				delete memimp;
-			}
+			memimp->defaultAllocator->~HeapAllocator();
+			delete memimp;
 		}
 	}
 }

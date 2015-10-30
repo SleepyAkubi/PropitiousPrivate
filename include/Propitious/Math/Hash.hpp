@@ -8,7 +8,7 @@ namespace Propitious
 {
 	namespace
 	{
-		using vol = Memory::Allocator::vol;
+		using vol = Allocator::vol;
 	}
 
 	// CityHash?

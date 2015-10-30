@@ -5,7 +5,7 @@ namespace Propitious
 {
 	namespace
 	{
-		using vol = Memory::Allocator::vol;
+		using vol = Allocator::vol;
 
 		template <typename T>
 		inline void erase(HashMap<T>& hashmap, const FindResult& foundResult)
@@ -258,7 +258,7 @@ namespace Propitious
 	}
 
 	template <typename T>
-	HashMap<T>::HashMap(Memory::Allocator& a)
+	HashMap<T>::HashMap(Allocator& a)
 		: hashes(a)
 		, data(a)
 	{

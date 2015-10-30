@@ -10,7 +10,7 @@ namespace Propitious
 
 	namespace
 	{
-		using vol = Memory::Allocator::vol;
+		using vol = Allocator::vol;
 
 		struct FindResult
 		{
@@ -64,7 +64,7 @@ namespace Propitious
 	void clear(HashMap<T>& hashmap);
 
 	template <typename T>
-	HashMap<T>::HashMap(Memory::Allocator& a);
+	HashMap<T>::HashMap(Allocator& a);
 
 	namespace
 	{

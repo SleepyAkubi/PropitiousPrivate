@@ -5,26 +5,23 @@
 
 namespace Propitious
 {
-	namespace Memory
+	namespace
 	{
-		namespace
-		{
-			using vol = Allocator::vol;
-		}
+		using vol = Allocator::vol;
+	}
 
-		propexp Allocator& defaultAllocator();
+	propexp Allocator& defaultAllocator();
 
-		propexp void init();
-		propexp void shutdown();
+	propexp void init();
+	propexp void shutdown();
 
-		inline void* alignForward(void* pointer, Allocator::vol alignment)
-		{
-			uptr castedPointer = (uptr)pointer;
-			const vol alignmentModulus = castedPointer % alignment;
-			if (alignmentModulus)
-				castedPointer += (uptr)(alignment - alignmentModulus);
-			return (void*)castedPointer;
-		}
+	inline void* alignForward(void* pointer, Allocator::vol alignment)
+	{
+		uptr castedPointer = (uptr)pointer;
+		const vol alignmentModulus = castedPointer % alignment;
+		if (alignmentModulus)
+			castedPointer += (uptr)(alignment - alignmentModulus);
+		return (void*)castedPointer;
 	}
 }
 

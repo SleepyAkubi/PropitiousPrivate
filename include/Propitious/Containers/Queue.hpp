@@ -10,13 +10,13 @@ namespace Propitious
 {
 		namespace
 		{
-			using vol = Memory::Allocator::vol;
+			using vol = Allocator::vol;
 		}
 
 		template <typename T>
 		struct Queue
 		{
-			Queue(Memory::Allocator& a = defaultAllocator());
+			Queue(Allocator& a = defaultAllocator());
 
 			T& operator[](vol index);
 			const T& operator[](vol index) const;

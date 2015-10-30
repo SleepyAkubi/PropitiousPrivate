@@ -9,11 +9,11 @@ namespace Propitious
 {
 	namespace
 	{
-		using vol = Memory::Allocator::vol;
+		using vol = Allocator::vol;
 	}
 
 	template <typename T>
-	inline Array<T>::Array(Memory::Allocator& allocator);
+	inline Array<T>::Array(Allocator& allocator);
 
 	template <typename T>
 	inline Array<T>::~Array();
@@ -83,7 +83,7 @@ namespace Propitious
 	inline void reserve(Array<T>& array, vol capacity);
 
 	template <typename T>
-	void grow(Array<T>& array, vol minCapacity);
+	void grow(Array<T>& array, vol minCapacity = 0);
 }
 
 #endif

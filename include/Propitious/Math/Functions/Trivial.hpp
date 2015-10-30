@@ -8,61 +8,61 @@
 namespace Propitious
 {
 	// Trigonometric
-	propexp f32 sin(const Radian& theta);
-	propexp f32 cos(const Radian& theta);
-	propexp f32 tan(const Radian& theta);
+	inline f32 sin(const Radian& theta);
+	inline f32 cos(const Radian& theta);
+	inline f32 tan(const Radian& theta);
 
-	propexp Radian asin(f32 a);
-	propexp Radian acos(f32 a);
-	propexp Radian atan(f32 a);
-	propexp Radian atan2(f32 y, f32 x);
+	inline Radian asin(f32 a);
+	inline Radian acos(f32 a);
+	inline Radian atan(f32 a);
+	inline Radian atan2(f32 y, f32 x);
 
 	// Hyperbolic
-	propexp f32 sinh(f32 x);
-	propexp f32 cosh(f32 x);
-	propexp f32 tanh(f32 x);
+	inline f32 sinh(f32 x);
+	inline f32 cosh(f32 x);
+	inline f32 tanh(f32 x);
 
-	propexp f32 asinh(f32 x);
-	propexp f32 acosh(f32 x);
-	propexp f32 atanh(f32 x);
+	inline f32 asinh(f32 x);
+	inline f32 acosh(f32 x);
+	inline f32 atanh(f32 x);
 
 	// Power
-	propexp f32 pow(f32 x, f32 y);
-	propexp f32 sqrt(f32 x);
-	propexp f32 cbrt(f32 x);
-	propexp f32 hypotenuse(f32 x, f32 y);
+	inline f32 pow(f32 x, f32 y);
+	inline f32 sqrt(f32 x);
+	inline f32 cbrt(f32 x);
+	inline f32 hypotenuse(f32 x, f32 y);
 
-	propexp f32 fastInvSqrt(f32 x);
+	inline f32 fastInvSqrt(f32 x);
 
 	// Exponential and Logarithm
-	propexp f32 exp(f32 x);  // e^x
-	propexp f32 exp2(f32 x); // 2^x
-	propexp f32 ln(f32 x);
-	propexp f32 ln1p(f32 x); // ln(1 + x)
-	propexp f32 log2(f32 x);
-	propexp f32 log10(f32 x);
-	propexp f32 logBase(f32 x, f32 base);
+	inline f32 exp(f32 x);  // e^x
+	inline f32 exp2(f32 x); // 2^x
+	inline f32 ln(f32 x);
+	inline f32 ln1p(f32 x); // ln(1 + x)
+	inline f32 log2(f32 x);
+	inline f32 log10(f32 x);
+	inline f32 logBase(f32 x, f32 base);
 
 	// Rounding
-	propexp f32 ceil(f32 x);
-	propexp f32 floor(f32 x);
-	propexp f32 mod(f32 x, f32 y);
-	propexp f32 truncate(f32 x);
-	propexp f32 round(f32 x);
+	inline f32 ceil(f32 x);
+	inline f32 floor(f32 x);
+	inline f32 mod(f32 x, f32 y);
+	inline f32 truncate(f32 x);
+	inline f32 round(f32 x);
 
-	propexp i32 sign(i32 x);
-	propexp i64 sign(i64 x);
-	propexp f32 sign(f32 x);
+	inline i32 sign(i32 x);
+	inline i64 sign(i64 x);
+	inline f32 sign(f32 x);
 
 	// Other
-	propexp f32 abs(f32 x);
-	propexp i8  abs(i8 x);
-	propexp i16 abs(i16 x);
-	propexp i32 abs(i32 x);
-	propexp i64 abs(i64 x);
+	inline f32 abs(f32 x);
+	inline i8  abs(i8 x);
+	inline i16 abs(i16 x);
+	inline i32 abs(i32 x);
+	inline i64 abs(i64 x);
 
-	propexp Radian abs(const Radian& x);
-	propexp Degree abs(const Degree& x);
+	inline Radian abs(const Radian& x);
+	inline Degree abs(const Degree& x);
 
 	inline f32 square(f32 squaree)
 	{
@@ -85,13 +85,13 @@ namespace Propitious
 	}
 
 	template <class T>
-	T clamp(const T& x, const T& lower, const T& upper)
+	inline T clamp(const T& x, const T& lower, const T& upper)
 	{
 		return std::max(lower, std::min(x, upper));
 	}
 
 	template <class T>
-	propexp inline T kroneckerDelta(const T& i, const T& j)
+	inline T kroneckerDelta(const T& i, const T& j)
 	{
 		return i == j ? T(1) : T(0);
 	}

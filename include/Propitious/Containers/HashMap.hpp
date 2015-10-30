@@ -8,14 +8,15 @@
 
 namespace Propitious
 {
-	namespace EndOf
-	{
-		const vol Hash = Memory::EndOf::Vol;
-	}
-
 	namespace
 	{
-		using vol = Memory::Allocator::vol;
+		using vol = Allocator::vol;
+	}
+
+
+	namespace EndOf
+	{
+		const vol Hash = EndOf::Vol;
 	}
 
 	template <typename T>
@@ -32,7 +33,7 @@ namespace Propitious
 		Array<vol>   hashes;
 		Array<Entry> data;
 
-		HashMap(Memory::Allocator& a = defaultAllocator());
+		HashMap(Allocator& a = defaultAllocator());
 	};
 }
 

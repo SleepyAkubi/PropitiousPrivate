@@ -1,32 +1,54 @@
 #ifndef PROPITIOUS_TYPES_HPP
 #define PROPITIOUS_TYPES_HPP
 
-#include <cstdint>
-#include <cstddef>
-#include <inttypes.h>
+#include <Propitious/Common.hpp>
 
 namespace Propitious
 {
-	using i8  = std::int8_t;
-	using i16 = std::int16_t;
-	using i32 = std::int32_t;
-	using i64 = std::int64_t;
+	using a8  = char;
+	using a16 = short;
+	using a32 = int;
+	using a64 = long long;
 
-	using u8  = std::uint8_t;
-	using u16 = std::uint16_t;
-	using u32 = std::uint32_t;
-	using u64 = std::uint64_t;
+	using i8  = signed char;
+	using i16 = signed short;
+	using i32 = signed int;
+	using i64 = signed long long;
+
+	using u8  = unsigned char;
+	using u16 = unsigned short;
+	using u32 = unsigned int;
+	using u64 = unsigned long long;
 
 	using f32 = float;
 	using f64 = double;
 
-	using usize = std::size_t;
+#if !PROPITIOUS_MAXINT_BITS
+#elif PROPITIOUS_MAXINT_BITS == 64
+	using usize = u64;
+#elif PROPITIOUS_MAXINT_BITS == 32
+	using usize = u32;
+#elif PROPITIOUS_MAXINT_BITS == 16
+	using usize = u16;
+#elif PROPITIOUS_MAXINT_BITS == 8
+	using usize = u8;
+#endif
 
-	using iptr = std::intptr_t;
-	using uptr = std::uintptr_t;
+#if !PROPITIOUS_MAXINT_BITS
+#elif PROPITIOUS_MAXINT_BITS == 64
+	using isize = i64;
+#elif PROPITIOUS_MAXINT_BITS == 32
+	using isize = i32;
+#elif PROPITIOUS_MAXINT_BITS == 16
+	using isize = i16;
+#elif PROPITIOUS_MAXINT_BITS == 8
+	using isize = i8;
+#endif
+
+	using iptr = isize;
+	using uptr = usize;
 
 	using b8 = bool;
-	using b32 = i32;
 }
 
 #endif

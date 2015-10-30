@@ -5,11 +5,11 @@ namespace Propitious
 {
 	namespace
 	{
-		using vol = Memory::Allocator::vol;
+		using vol = Allocator::vol;
 	}
 
 	template <typename T>
-	inline Array<T>::Array(Memory::Allocator& allocator)
+	inline Array<T>::Array(Allocator& allocator)
 		: allocator(&allocator)
 		, length(0)
 		, capacity(0)

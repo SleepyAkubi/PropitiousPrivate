@@ -9,13 +9,13 @@ namespace Propitious
 {
 	namespace
 	{
-		using vol = Memory::Allocator::vol;
+		using vol = Allocator::vol;
 	}
 
 	template <typename T>
 	struct Array
 	{
-		Array(Memory::Allocator& allocator = defaultAllocator());
+		Array(Allocator& allocator = defaultAllocator());
 
 		~Array();
 
@@ -33,7 +33,7 @@ namespace Propitious
 			return data[index];
 		}
 
-		Memory::Allocator* allocator;
+		Allocator* allocator;
 		vol length;
 		vol capacity;
 		T* data;

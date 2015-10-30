@@ -11,7 +11,7 @@ namespace Propitious
 	}
 
 	template <typename T>
-	Queue<T>::Queue(Memory::Allocator& allocator)
+	Queue<T>::Queue(Allocator& allocator)
 		: data(allocator)
 		, length(0)
 		, offset(0)

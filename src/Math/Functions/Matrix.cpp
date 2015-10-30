@@ -18,7 +18,7 @@ namespace Propitious
 		return result;
 	}
 
-Matrix4 hadamardProduct(const Matrix4& a, const Matrix4& b)
+	Matrix4 hadamardProduct(const Matrix4& a, const Matrix4& b)
 	{
 		Matrix4 result;
 
@@ -29,7 +29,7 @@ Matrix4 hadamardProduct(const Matrix4& a, const Matrix4& b)
 	}
 
 
-std::ostream& operator<<(std::ostream& os, const Matrix4& m)
+	std::ostream& operator<<(std::ostream& os, const Matrix4& m)
 	{
 		os << "Matrix4(";
 		for (usize i = 0; i < 4; i++)
@@ -70,7 +70,7 @@ std::ostream& operator<<(std::ostream& os, const Matrix4& m)
 	Matrix4 scale(const Vector3& v)
 	{
 		Matrix4 result{
-			Vector4{v.x, 0, 0, 0}, Vector4{0, v.y, 0, 0}, Vector4{0, 0, v.z, 0}, Vector4{0, 0, 0, 1}};
+			Vector4{v.x, 0, 0, 0}, Vector4{0, v.y, 0, 0}, Vector4{0, 0, v.z, 0}, Vector4{0, 0, 0, 1} };
 		return result;
 	}
 
@@ -78,8 +78,8 @@ std::ostream& operator<<(std::ostream& os, const Matrix4& m)
 	{
 		Matrix4 result = Matrix4::Identity;
 
-		result.data[0].data[0] = 2.0f / (right-left);
-		result.data[1].data[1] = 2.0f / (top-bottom);
+		result.data[0].data[0] = 2.0f / (right - left);
+		result.data[1].data[1] = 2.0f / (top - bottom);
 		result.data[2].data[2] = -1.0f;
 		result.data[3].data[0] = -(right + left) / (right - left);
 		result.data[3].data[1] = -(top + bottom) / (top - bottom);

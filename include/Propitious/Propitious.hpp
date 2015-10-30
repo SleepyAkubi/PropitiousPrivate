@@ -4,6 +4,7 @@
 #include <Propitious/Memory/Allocators/TempAllocator.hpp>
 
 #include <Propitious/Math/Angle.hpp>
+#include <Propitious/Math/Time.hpp>
 #include <Propitious/Math/Constants.hpp>
 #include <Propitious/Math/Hash.hpp>
 #include <Propitious/Math/Matrix4.hpp>
@@ -17,4 +18,10 @@
 #include <Propitious/Math/Functions/Trivial.hpp>
 
 #include <Propitious/Containers/Containers.hpp>
+
+#include <Propitious/Graphics/OpenGL.hpp>
+#include <Propitious/Graphics/Image.hpp>
+
+#include <Propitious/Extras/Logger.hpp>
+#include <Propitious/Extras/Window.hpp>
 
