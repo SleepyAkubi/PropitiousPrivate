@@ -30,27 +30,35 @@
 
 namespace Propitious
 {
-
-
-
-	/* Do Not Use Until We Get Get Operators*/
+#pragma message( PROPITIOUS_WARNING("P-100") "Todo: Fix this class, maybe when C++42 comes around?")
 	template <typename T>
 	class Hooked : private NonCopyable
 	{
 	public:
-		using Function = std::function<void(const T&, const T&)>;
-		Hooked(T& value, Function hook) : reference(value), hook(hook) {}
+		using SetFunction = std::function<void(T&, const T&)>;
+		using GetFunction = std::function<T(T&)>;
+
+		Hooked(T value, SetFunction setHook, GetFunction getHook)
+			: data(value)
+			, setHook(setHook)
+			, getHook(getHook)
+		{}
 
 		T& operator=(const T& value)
 		{
-			hook(reference, value);
-			reference = value;
+			setHook(data, value);
+			return data;
 		}
 
-		T& reference;
-		Function hook;
-	};
+		T operator*()
+		{
+			return getHook(data);
+		}
 
+		T data;
+		SetFunction setHook;
+		GetFunction getHook;
+	};
 }
 
 #include <Propitious/Memory/Allocator.hpp>

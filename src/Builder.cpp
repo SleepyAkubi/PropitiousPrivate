@@ -1,8 +1,5 @@
 #include <Propitious/Propitious.hpp>
 
-#include "../src/Containers/Helpers/Array.cpp"
-#include "../src/Containers/Helpers/HashMap.cpp"
-#include "../src/Containers/Helpers/Queue.cpp"
 #include "../src/Containers/Helpers/String.cpp"
 
 #include "../src/Math/Functions/Matrix.cpp"

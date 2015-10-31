@@ -32,7 +32,7 @@ namespace Propitious
 	inline String::String(const a8* characterArray, Allocator& allocator)
 		: data(allocator)
 	{
-		pushBack(data, *characterArray);
+		push(data, characterArray, strlen(characterArray));
 	}
 	inline String::String(const String& string)
 		: data(string.data)
@@ -48,7 +48,7 @@ namespace Propitious
 	inline String& String::operator=(const a8* characterArray)
 	{
 		clear(data);
-		pushBack(data, *characterArray);
+		push(data, characterArray, strlen(characterArray));
 		return *this;
 	}
 	inline String& String::operator=(const a8 character)
@@ -73,7 +73,7 @@ namespace Propitious
 	}
 	inline usize append(String& string, const a8* characterArray)
 	{
-		return pushBack(string.data, *characterArray);
+		return push(string.data, characterArray, strlen(characterArray));
 	}
 	inline usize append(String& string1, const String& string2)
 	{

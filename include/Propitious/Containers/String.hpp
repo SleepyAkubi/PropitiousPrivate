@@ -7,7 +7,7 @@
 
 namespace Propitious
 {
-	struct String
+	struct PROPITIOUS_EXPORT String
 	{
 		Array<a8> data;
 

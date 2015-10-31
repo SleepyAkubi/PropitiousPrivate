@@ -3,7 +3,7 @@
 
 namespace Propitious
 {
-#if defined(DEBUG) || defined(_DEBUG) || defined(__DEBUG)
+#if defined(DEBUG) || defined(_DEBUG) || defined(__DEBUG) || defined(_DEBUG_) || defined(__DEBUG__) || defined(PROPITIOUS_DEBUG)
 #define debug(x) x
 #else
 #define debug(x)
