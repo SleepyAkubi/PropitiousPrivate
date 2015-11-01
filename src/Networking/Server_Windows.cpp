@@ -17,7 +17,6 @@ namespace Propitious
 			// Error Handling
 		}
 		addrinfo* result = nullptr;
-		addrinfo* ptr = nullptr;
 		addrinfo hints = { 0 };
 
 		hints.ai_family = AF_INET;

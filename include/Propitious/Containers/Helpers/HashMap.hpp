@@ -108,7 +108,7 @@ namespace Propitious
 
 			if (foundResult.dataIndex == length(hashmap.data) - 1)
 			{
-				popBack(hashmap.data);
+				dele(hashmap.data);
 				return;
 			}
 
@@ -128,7 +128,7 @@ namespace Propitious
 			newEntry.key = key;
 			newEntry.next = EndOf::Hash;
 			vol entryIndex = length(hashmap.data);
-			pushBack(hashmap.data, newEntry);
+			append(hashmap.data, newEntry);
 
 			return entryIndex;
 		}
@@ -364,7 +364,7 @@ namespace Propitious
 
 			while (entry)
 			{
-				pushBack(items, e->value);
+				append(items, e->value);
 				e = findNext(hashmap, key);
 			}
 		}

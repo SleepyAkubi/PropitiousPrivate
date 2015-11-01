@@ -41,10 +41,10 @@ namespace Propitious
 			return result;
 		}
 
-		Radian angle = acos(cosTheta);
+		Radian angle = Math::acos(cosTheta);
 
-		result = sin(Radian(1.0f) - (t * angle)) * x + sin(t * angle) * z;
-		result = result * (1.0f / sin(angle));
+		result = Math::sin(Radian(1.0f) - (t * angle)) * x + Math::sin(t * angle) * z;
+		result = result * (1.0f / Math::sin(angle));
 
 		return result;
 	}

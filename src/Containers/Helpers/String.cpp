@@ -27,12 +27,12 @@ namespace Propitious
 	inline String::String(a8 character, Allocator& allocator)
 		: data(allocator)
 	{
-		pushBack(data, character);
+		append(data, character);
 	}
 	inline String::String(const a8* characterArray, Allocator& allocator)
 		: data(allocator)
 	{
-		push(data, characterArray, strlen(characterArray));
+		append(data, characterArray, strlen(characterArray));
 	}
 	inline String::String(const String& string)
 		: data(string.data)
@@ -48,13 +48,13 @@ namespace Propitious
 	inline String& String::operator=(const a8* characterArray)
 	{
 		clear(data);
-		push(data, characterArray, strlen(characterArray));
+		append(data, characterArray, strlen(characterArray));
 		return *this;
 	}
 	inline String& String::operator=(const a8 character)
 	{
 		clear(data);
-		pushBack(data, character);
+		append(data, character);
 		return *this;
 	}
 
@@ -69,15 +69,15 @@ namespace Propitious
 
 	inline usize append(String& string, a8 character)
 	{
-		return pushBack(string.data, character);
+		return append(string.data, character);
 	}
 	inline usize append(String& string, const a8* characterArray)
 	{
-		return push(string.data, characterArray, strlen(characterArray));
+		return append(string.data, characterArray, strlen(characterArray));
 	}
 	inline usize append(String& string1, const String& string2)
 	{
-		return pushBack(string1.data, front(string2));
+		return append(string1.data, front(string2));
 	}
 
 	inline a8* begin(String& string)
@@ -116,8 +116,8 @@ namespace Propitious
 
 	inline const a8* cString(const String& string)
 	{
-		pushBack(const_cast<Array<a8>&>(string.data), '\0');
-		popBack(const_cast<Array<a8>&>(string.data));
+		append(const_cast<Array<a8>&>(string.data), '\0');
+		dele(const_cast<Array<a8>&>(string.data));
 		return begin(string.data);
 	}
 

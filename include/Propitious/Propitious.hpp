@@ -1,3 +1,6 @@
+#ifndef PROPITIOUS_PROPITIOUS_HPP
+#define PROPITIOUS_PROPITIOUS_HPP
+
 #include <Propitious/Common.hpp>
 #include <Propitious/Memory/Allocator.hpp>
 #include <Propitious/Memory/Memory.hpp>
@@ -25,3 +28,4 @@
 #include <Propitious/Extras/Logger.hpp>
 #include <Propitious/Extras/Window.hpp>
 
+#endif

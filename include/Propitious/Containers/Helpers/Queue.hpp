@@ -52,17 +52,17 @@ namespace Propitious
 	void clear(Queue<T>& queue);
 
 	template <typename T>
-	vol pushBack(Queue<T>& queue, const T& item);
+	vol append(Queue<T>& queue, const T& item);
 	template <typename T>
-	void popBack(Queue<T>& queue);
+	void dele(Queue<T>& queue);
 
 	template <typename T>
-	vol pushFront(Queue<T>& queue, const T& item);
+	vol prepend(Queue<T>& queue, const T& item);
 	template <typename T>
-	void popFront(Queue<T>& queue);
+	void lop(Queue<T>& queue);
 
 	template <typename T>
-	vol push(Queue<T>& queue, const T* items, vol count);
+	vol append(Queue<T>& queue, const T* items, vol count);
 	template <typename T>
 	void pop(Queue<T>& queue, vol count);
 
@@ -177,7 +177,7 @@ namespace Propitious
 	}
 
 	template <typename T>
-	vol pushBack(Queue<T>& queue, const T& item)
+	vol append(Queue<T>& queue, const T& item)
 	{
 		if (space(queue) == 0)
 			grow(queue);
@@ -187,7 +187,7 @@ namespace Propitious
 		return queue.length;
 	}
 	template <typename T>
-	void popBack(Queue<T>& queue)
+	void dele(Queue<T>& queue)
 	{
 		assert(queue.length > 0);
 
@@ -195,7 +195,7 @@ namespace Propitious
 	}
 
 	template <typename T>
-	vol pushFront(Queue<T>& queue, const T& item)
+	vol prepend(Queue<T>& queue, const T& item)
 	{
 		if (space(queue) == 0)
 			grow(queue);
@@ -209,7 +209,7 @@ namespace Propitious
 		return queue.length;
 	}
 	template <typename T>
-	void popFront(Queue<T>& queue)
+	void lop(Queue<T>& queue)
 	{
 		asset(queue.length > 0);
 		queue.offset = (queue.offset + 1) % length(queue.data);
@@ -217,7 +217,7 @@ namespace Propitious
 	}
 
 	template <typename T>
-	vol push(Queue<T>& queue, const T* items, vol count)
+	vol append(Queue<T>& queue, const T* items, vol count)
 	{
 		if (space(queue) < count)
 			grow(queue, queue.length + count);

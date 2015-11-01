@@ -1,5 +1,7 @@
-#ifndef PROPITIOUS_COMMON_MESSAGES
-#define PROPITIOUS_COMMON_MESSAGES
+#ifndef PROPITIOUS_COMMON_MESSAGES_HPP
+#define PROPITIOUS_COMMON_MESSAGES_HPP
+
+#include <Propitious/Common/Compilers.hpp>
 
 namespace Propitious
 {
@@ -13,8 +15,7 @@ namespace Propitious
 #define __OUTPUT_FORMAT__(type) __LOC__ " : " type " : "
 
 	// specific message types for <#pragma message>
-#define PROPITIOUS_WARNING(x) __OUTPUT_FORMAT__("warning " x)
-#define PROPITIOUS_ERROR(x) __OUTPUT_FORMAT__("error " x)
-#define PROPITIOUS_FATAL(x) __OUTPUT_FORMAT__("fatal error " x)
+#define PROPITIOUS_WARNING(x) __OUTPUT_FORMAT__("warning" x)
+#define PROPITIOUS_ERROR(x) __OUTPUT_FORMAT__("error" x)
 }
 #endif

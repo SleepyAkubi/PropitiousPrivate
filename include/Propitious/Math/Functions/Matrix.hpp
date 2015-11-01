@@ -1,5 +1,5 @@
-#ifndef PROPITIOUS_MATH_FUNCTIONS_HPP
-#define PROPITIOUS_MATH_FUNCTIONS_HPP
+#ifndef PROPITIOUS_MATH_FUNCTIONS_MATRIX_HPP
+#define PROPITIOUS_MATH_FUNCTIONS_MATRIX_HPP
 
 #include <Propitious/Common.hpp>
 #include <Propitious/Math/Angle.hpp>

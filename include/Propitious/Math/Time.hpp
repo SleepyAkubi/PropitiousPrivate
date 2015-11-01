@@ -1,9 +1,14 @@
 #ifndef PROPITIOUS_MATH_TIME_HPP
 #define PROPITIOUS_MATH_TIME_HPP
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <Propitious/Common.hpp>
+#include <Propitious/Containers/String.hpp>
+#include <Propitious/Math/Functions/trivial.hpp>
 #include <chrono>
 #include <thread>
+#include <ctime>
 
 #ifdef PROPITIOUS_SYSTEM_WINDOWS
 #include <Windows.h>
@@ -30,26 +35,32 @@ namespace Propitious
 		{
 			return static_cast<u32>(m_microseconds.count());
 		}
+		inline const a8* format(const a8* format = "%d/%m/%Y") const
+		{
+			static a8 buffer[1024];
+			f32 seconds = asSeconds();
+			time_t secondsCeiling = Math::floor(seconds);
+			tm* time = gmtime((&secondsCeiling));
+			strftime(buffer, 1024, format, time);
+			return buffer;
+		}
 
 		static Time now()
 		{
 #ifdef PROPITIOUS_SYSTEM_WINDOWS	
-			HANDLE currentThread = GetCurrentThread();
-			DWORD_PTR previousMask = SetThreadAffinityMask(currentThread, 1);
+			FILETIME filetime;
+			GetSystemTimeAsFileTime(&filetime);
+			u64 tt = filetime.dwHighDateTime;
+			tt <<= 32;
+			tt |= filetime.dwLowDateTime;
+			tt /= 10;
+			tt -= 11644473600000000ULL;
 
-			static LARGE_INTEGER s_frequency;
-			QueryPerformanceFrequency(&s_frequency);
-
-			LARGE_INTEGER time;
-			QueryPerformanceCounter(&time);
-
-			SetThreadAffinityMask(currentThread, previousMask);
-
-			return Time(static_cast<i64>(1e6 * time.QuadPart / s_frequency.QuadPart));
+			return Time(tt);
 
 #else
 			auto now = std::chrono::high_resolution_clock::now().time_since_epoch();
-			return Time(static_cast<i64>(std::chrono::duration_cast<std::chrono::microseconds>(now).count()));
+			return Time((u64)(std::chrono::duration_cast<std::chrono::microseconds>(now).count()));
 #endif
 		}
 		static void snooze(Time time)
@@ -64,9 +75,9 @@ namespace Propitious
 		std::chrono::microseconds m_microseconds;
 	};
 
-	inline Time seconds(f32 amount) { return Time(static_cast<u64>(amount * 1000000)); }
+	inline Time seconds(f32 amount) { return Time((u64)(amount * 1000000)); }
 
-	inline Time milliseconds(u32 amount) { return Time(static_cast<u64>(amount * 1000)); }
+	inline Time milliseconds(u32 amount) { return Time((u64)(amount * 1000)); }
 
 	inline Time microseconds(u64 amount) { return Time(amount); }
 

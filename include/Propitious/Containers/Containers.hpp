@@ -1,5 +1,5 @@
-#ifndef PROPITIOUS_MEMORY_CONTAINERS
-#define PROPITIOUS_MEMORY_CONTAINERS
+#ifndef PROPITIOUS_MEMORY_CONTAINERS_HPP
+#define PROPITIOUS_MEMORY_CONTAINERS_HPP
 
 #include <Propitious/Containers/Array.hpp>
 #include <Propitious/Containers/Queue.hpp>

@@ -3,9 +3,7 @@
 #define STBI_FAILURE_USERMSG
 
 #define STB_IMAGE_IMPLEMENTATION
-#pragma warning (push, 0)
 #include "STB/stb_image.h"
-#pragma warning (pop)
 
 #include <stdexcept>
 
@@ -14,6 +12,7 @@
 
 namespace Propitious
 {
+	/*
 	bool loadFromFile(Image& image, const char* fileName)
 	{
 		int width, height, format;
@@ -96,20 +95,6 @@ namespace Propitious
 		allocator.deallocate(rowBuffer);
 	}
 
-	/*
-	void Image::rotate90CCW()
-	{
-	// (TODO): Implement function
-	}
-
-
-	void Image::copyRectFromImage(const Image& src,
-	u32 srcCol,  u32 srcRow,
-	u32 destCol, u32 destRow,
-	u32 m_width,   u32 m_height)
-	{
-	// (TODO): Implement function
-	}
 	*/
 
 }

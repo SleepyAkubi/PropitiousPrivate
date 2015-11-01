@@ -19,7 +19,9 @@ namespace Propitious
 		NumFormats
 	};
 
-	struct PROPITIOUS_EXPORT Image
+	#pragma message( PROPITIOUS_WARNING("TODO") "Fix the image class when compiling on Clang!")
+
+	/*struct PROPITIOUS_EXPORT Image
 	{
 		ImageFormat format = ImageFormat::None;
 		u32 width = 0;
@@ -35,6 +37,7 @@ namespace Propitious
 	void setPixel(Image& image, u32 column, u64 row, const u32* pixel);
 
 	void flipVertically(Image& image);
+	*/
 }
 
 #endif

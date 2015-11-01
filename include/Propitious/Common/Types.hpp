@@ -24,6 +24,14 @@ namespace Propitious
 	using f32 = float;
 	using f64 = double;
 
+#ifdef PROPITIOUS_COMPILER_CLANG
+	using i128 = signed __int128;
+	using u128 = unsigned __int128;
+#else
+	using i128 = i64;
+	using u128 = u64;
+#endif
+
 #if !PROPITIOUS_MAXINT_BITS
 #elif PROPITIOUS_MAXINT_BITS == 64
 	using usize = u64;

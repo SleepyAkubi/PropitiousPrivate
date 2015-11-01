@@ -1,8 +1,9 @@
-#ifndef PROPITIOUS_COMMON_COMPILERS
-#define PROPITIOUS_COMMON_COMPILERS
+#ifndef PROPITIOUS_COMMON_COMPILERS_HPP
+#define PROPITIOUS_COMMON_COMPILERS_HPP
 
 namespace Propitious
 {
+
 #if   defined(_MSC_VER)
 #define PROPITIOUS_COMPILER_MSVC
 #elif defined(__clang__)

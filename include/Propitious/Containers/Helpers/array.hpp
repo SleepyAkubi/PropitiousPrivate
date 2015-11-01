@@ -4,6 +4,7 @@
 #include <Propitious/Common.hpp>
 #include <Propitious/Memory/Allocator.hpp>
 #include <Propitious/Containers/Array.hpp>
+#include <cassert>
 
 namespace Propitious
 {
@@ -25,9 +26,9 @@ namespace Propitious
 	inline Array<T>& Array<T>::operator=(const Array& other);
 
 	template <typename T>
-	vol pushBack(Array<T>& array, const T& item);
+	vol append(Array<T>& array, const T& item);
 	template <typename T>
-	void popBack(Array<T>& array);
+	void dele(Array<T>& array);
 
 	template <typename T, typename... Args>
 	vol emplaceBack(Array<T>& array, const T& item, Args&&... args);
@@ -71,7 +72,7 @@ namespace Propitious
 	inline void trim(Array<T>& array);
 
 	template <typename T>
-	vol push(Array<T>& array, const T* items, vol count);
+	vol append(Array<T>& array, const T* items, vol count);
 
 	template <typename T>
 	void resize(Array<T>& array, vol length);
@@ -122,7 +123,7 @@ namespace Propitious
 	}
 
 	template <typename T>
-	vol pushBack(Array<T>& array, const T& item)
+	vol append(Array<T>& array, const T& item)
 	{
 		if (array.length == array.capacity)
 			grow(array);
@@ -132,7 +133,7 @@ namespace Propitious
 		return array.length;
 	}
 	template <typename T>
-	void popBack(Array<T>& array)
+	void dele(Array<T>& array)
 	{
 		assert(array.length > 0);
 
@@ -143,7 +144,7 @@ namespace Propitious
 	vol emplaceBack(Array<T>& array, const T& item, Args&&... args)
 	{
 		item(std::forward<Args>(args)...);
-		pushBack(array, item);
+		append(array, item);
 	}
 
 	template <typename T>
@@ -227,7 +228,7 @@ namespace Propitious
 	}
 
 	template <typename T>
-	vol push(Array<T>& array, const T* items, vol count)
+	vol append(Array<T>& array, const T* items, vol count)
 	{
 		if (array.capacity <= array.length + count)
 			grow(array, array.length + count);
