@@ -24,6 +24,8 @@
 
 #include <Propitious/Graphics/OpenGL.hpp>
 #include <Propitious/Graphics/Image.hpp>
+#include <Propitious/Graphics/Transform.hpp>
+#include <Propitious/Graphics/Camera.hpp>
 
 #include <Propitious/Extras/Logger.hpp>
 #include <Propitious/Extras/Window.hpp>

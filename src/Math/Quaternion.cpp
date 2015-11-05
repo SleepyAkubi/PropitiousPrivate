@@ -6,7 +6,7 @@
 #include <Propitious/Math/Functions/Trivial.hpp>
 
 namespace Propitious {
-
+	const Quaternion Quaternion::Identity = Quaternion{ 0, 0, 0, 1 };
 	Quaternion operator-(const Quaternion& quaternion)
 	{
 		Quaternion c;

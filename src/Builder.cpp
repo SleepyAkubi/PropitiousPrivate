@@ -16,6 +16,8 @@
 #include "../src/Memory/Memory.cpp"
 
 #include "../src/Graphics/Image.cpp"
+#include "../src/Graphics/Camera.cpp"
+
 #include "../src/Extras/Logger.cpp"
 
 #ifdef PROPITIOUS_SYSTEM_WINDOWS

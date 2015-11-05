@@ -3,7 +3,8 @@
 
 namespace Propitious
 {
-	const Matrix4 Matrix4::Identity = { Vector4{ 1, 0, 0, 0 },
+	const Matrix4 Matrix4::Identity =
+	{ Vector4{ 1, 0, 0, 0 },
 		Vector4{ 0, 1, 0, 0 },
 		Vector4{ 0, 0, 1, 0 },
 		Vector4{ 0, 0, 0, 1 } };

@@ -24,6 +24,7 @@ namespace Propitious
 			f32 x, y, z, w;
 		};
 		f32 data[4];
+		static const Quaternion Identity;
 	};
 
 	PROPITIOUS_EXPORT Quaternion operator-(const Quaternion& quaternion);
