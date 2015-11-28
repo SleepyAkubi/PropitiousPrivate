@@ -30,4 +30,6 @@
 #include <Propitious/Extras/Logger.hpp>
 #include <Propitious/Extras/Window.hpp>
 
+#include <Propitious/USB/Device.hpp>
+
 #endif

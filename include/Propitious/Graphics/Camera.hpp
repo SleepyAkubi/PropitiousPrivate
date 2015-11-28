@@ -16,7 +16,7 @@ namespace Propitious
 		Orthographic
 	};
 
-	struct PROPITIOUS_EXPORT Camera
+	struct Camera
 	{
 		Transform transform = Transform{};
 		Radian fieldOfView = Degree(90);
@@ -27,7 +27,9 @@ namespace Propitious
 		ProjectionType projectionType = ProjectionType::Perspective;
 	};
 
+
 	void lookAt(Camera& camera, const Vector3& position, const Vector3& up = { 0, 1, 0 })
+	{}
 }
 
 #endif

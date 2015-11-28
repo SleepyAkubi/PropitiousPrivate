@@ -15,7 +15,7 @@ namespace Propitious
 	inline Transform operator*(const Transform& parentSpace, const Transform& localSpace)
 	{
 		Transform worldSpace;
-		worldSpace.position = parentSpace.position + parentSpace.orientation * (parentSpace.scale * localSpace.Position);
+		worldSpace.position = parentSpace.position + parentSpace.orientation * (parentSpace.scale * localSpace.position);
 		worldSpace.orientation = parentSpace.orientation * localSpace.orientation;
 		worldSpace.scale = parentSpace.scale * (parentSpace.orientation * localSpace.scale);
 
@@ -57,7 +57,7 @@ namespace Propitious
 		Transform inverseTransform;
 		inverseTransform.position = (orientationConjugate * -transform.position) / transform.scale;
 		inverseTransform.orientation = orientationConjugate;
-		inverseTrasnform.scale = orientationConjugate * (Vector3{ 1, 1, 1 } / t.scale);
+		inverseTransform.scale = orientationConjugate * (Vector3{ 1, 1, 1 } / transform.scale);
 
 		return inverseTransform;
 	}

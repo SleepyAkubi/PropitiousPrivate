@@ -20,6 +20,8 @@
 
 #include "../src/Extras/Logger.cpp"
 
+
 #ifdef PROPITIOUS_SYSTEM_WINDOWS
+#include "../src/USB/Device_Windows.cpp"
 #include "../src/Networking/Server_Windows.cpp"
 #endif

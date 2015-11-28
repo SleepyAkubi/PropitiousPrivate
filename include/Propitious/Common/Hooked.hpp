@@ -5,7 +5,6 @@
 
 namespace Propitious
 {
-	#warning "Todo: Fix this class"
 	template <typename T>
 	class Hooked : private NonCopyable
 	{
