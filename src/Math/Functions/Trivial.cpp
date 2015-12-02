@@ -29,7 +29,7 @@ namespace Propitious
 		inline f32 atanh(f32 x) { return std::atanh(x); }
 
 		// Power
-		inline f32 pow(f32 x, f32 y) { return std::pow(x, y); }
+		inline f32 cubepow(f32 x, f32 y) { return std::pow(x, y); }
 
 		inline f32 sqrt(f32 x) { return std::sqrt(x); }
 

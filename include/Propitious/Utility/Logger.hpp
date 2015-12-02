@@ -6,7 +6,7 @@
 
 namespace Propitious
 {
-	enum LogFlags : u32
+	enum class LogFlags : u32
 	{
 		Date = 1,
 		Time = 2,
@@ -16,7 +16,7 @@ namespace Propitious
 	struct Logger
 	{
 		FILE* file;
-		u32 flags;
+		LogFlags flags;
 		const a8* prefix;
 	};
 

@@ -1,10 +1,5 @@
 #include <Propitious/Graphics/Image.hpp>
 
-#define STBI_FAILURE_USERMSG
-
-#define STB_IMAGE_IMPLEMENTATION
-#include "STB/stb_image.h"
-
 #include <stdexcept>
 
 #include <iostream>
@@ -12,25 +7,56 @@
 
 namespace Propitious
 {
-	/*
-	bool loadFromFile(Image& image, const char* fileName)
+	namespace Types
 	{
-		int width, height, format;
-		u8* loadedImageByteArray = stbi_load(fileName, &width, &height, &format, 0);
-
-		if (!loadedImageByteArray)
+		Image loadBMP(Image& image, const a8* path)
 		{
-			std::cout << stbi_failure_reason() << std::endl;
-			// (TODO): Error Logging
-			return false;
+
+			u8* header = (u8*)(defaultAllocator().allocate(54));
+			u32 dataPos;
+			u32 imageSize;
+
+			FILE* file = fopen(path, "rb");
+			if (!file)
+			{
+				// No file
+			}
+
+			if (fread(header, 1, 54, file) != 54)
+			{
+				// Not BMP
+			}
+
+			if (header[0] != 'B' || header[1] != 'M')
+			{
+				// Not BMP
+			}
+
+			dataPos = *(usize*)&(header[0x0A]);
+			imageSize = *(usize*)&(header[0x22]);
+			image.width = *(usize*)&(header[0x12]);
+			image.height = *(usize*)&(header[0x16]);
+			image.format = ImageFormat::RGB;
+
+			if (imageSize == 0)
+			{
+				imageSize = image.width * image.height * 3;
+			}
+
+			if (dataPos == 0)
+			{
+				dataPos = 54;
+			}
+
+			image.pixels = (u8*)(defaultAllocator().allocate(imageSize));
+			fread(image.pixels, 1, imageSize, file);
+			fclose(file);
 		}
+	}
 
-		loadFromMemory(image, width, height, (ImageFormat)format, loadedImageByteArray);
-		stbi_image_free(loadedImageByteArray);
-
-		if (image.pixels)
-			return true;
-		return false;
+	bool loadFromFile(Image& image, const a8* path)
+	{
+		image = Types::loadBMP(image, path);
 	}
 
 	bool loadFromMemory(Image& image, u32 w, u32 h, ImageFormat f, const u8* p)
@@ -94,7 +120,4 @@ namespace Propitious
 
 		allocator.deallocate(rowBuffer);
 	}
-
-	*/
-
 }

@@ -12,8 +12,11 @@ namespace Propitious
 
 	PROPITIOUS_EXPORT Allocator& defaultAllocator();
 
-	PROPITIOUS_EXPORT void init();
-	PROPITIOUS_EXPORT void shutdown();
+	namespace Implementation
+	{
+		PROPITIOUS_EXPORT void initialiseMemory();
+		PROPITIOUS_EXPORT void shutdownMemory();
+	}
 
 	inline void* alignForward(void* pointer, Allocator::vol alignment)
 	{

@@ -1,4 +1,4 @@
-#include <Propitious/Extras/Logger.hpp>
+#include <Propitious/Utility/Logger.hpp>
 #include <Propitious/Math/Time.hpp>
 
 #include <cstdarg>
@@ -14,14 +14,14 @@ namespace Propitious
 			strncpy(buffer, logger.prefix, 1024);
 			strncat(buffer, " ", 1);
 
-			if (logger.flags & LogFlags::Date)
+			if ((u32)logger.flags & (u32)LogFlags::Date)
 			{
 				const a8* dateString = Time::now().format("%d/%m/%Y");
 				strncat(buffer, dateString, strlen(dateString));
 				strncat(buffer, " ", 1);
 			}
 
-			if (logger.flags & LogFlags::Time)
+			if ((u32)logger.flags & (u32)LogFlags::Time)
 			{
 				const a8* dateString = Time::now().format("%H:%M:%S");
 				strncat(buffer, dateString, strlen(dateString));

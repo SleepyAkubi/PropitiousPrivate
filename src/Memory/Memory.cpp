@@ -1,5 +1,7 @@
 #include <Propitious/Memory/Memory.hpp>
 
+#include <Propitious/Graphics/OpenGL.hpp>
+
 #include <mutex>
 #include <cstdlib>
 
@@ -104,18 +106,21 @@ namespace Propitious
 		return *memimp->defaultAllocator;
 	}
 
-	void init()
+	namespace Implementation
 	{
-		u8* bufferPointer = memimp->buffer;
-		memimp->defaultAllocator = new (bufferPointer) HeapAllocator{};
-	}
-
-	void shutdown()
-	{
-		if (memimp)
+		void initialiseMemory()
 		{
-			memimp->defaultAllocator->~HeapAllocator();
-			delete memimp;
+			u8* bufferPointer = memimp->buffer;
+			memimp->defaultAllocator = new (bufferPointer) HeapAllocator{};
+		}
+
+		void shutdownMemory()
+		{
+			if (memimp)
+			{
+				memimp->defaultAllocator->~HeapAllocator();
+				delete memimp;
+			}
 		}
 	}
 }

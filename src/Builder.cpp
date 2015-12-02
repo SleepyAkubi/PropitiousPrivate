@@ -15,7 +15,14 @@
 
 #include "../src/Memory/Memory.cpp"
 
+#include "../src/System/SystemInfo.cpp"
+
+#include "../src/Graphics/Mesh.cpp"
 #include "../src/Graphics/Image.cpp"
+#include "../src/Graphics/OpenGL.cpp"
+#include "../src/Graphics/ShaderProgram.cpp"
+#include "../src/Graphics/Texture.cpp"
+#include "../src/Graphics/GeometryBuffer.cpp"
 #include "../src/Graphics/Camera.cpp"
 
 #include "../src/Extras/Logger.cpp"
@@ -24,4 +31,5 @@
 #ifdef PROPITIOUS_SYSTEM_WINDOWS
 #include "../src/USB/Device_Windows.cpp"
 #include "../src/Networking/Server_Windows.cpp"
+#include "../src/Graphics/Window_Windows.cpp"
 #endif
