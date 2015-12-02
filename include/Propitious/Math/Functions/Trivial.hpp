@@ -66,6 +66,18 @@ namespace Propitious
 		inline Radian abs(const Radian& x);
 		inline Degree abs(const Degree& x);
 
+		template <class T>
+		inline const T& maximum(const T& a, const T& b)
+		{
+			return (a > b) ? a : b;
+		}
+
+		template <class T>
+		inline const T& minimum(const T& a, const T& b)
+		{
+			return (a > b) ? b : a;
+		}
+
 		inline f32 square(f32 squaree)
 		{
 			return squaree * squaree;
@@ -89,7 +101,7 @@ namespace Propitious
 		template <class T>
 		inline T clamp(const T& x, const T& lower, const T& upper)
 		{
-			return std::max(lower, std::min(x, upper));
+			return max(lower, min(x, upper));
 		}
 
 		template <class T>

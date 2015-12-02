@@ -6,7 +6,10 @@
 #include <Propitious/Graphics/OpenGL.hpp>
 #include <Propitious/Graphics/Transform.hpp>
 #include <Propitious/Math/Matrix4.hpp>
-
+#include <Propitious/Math/Quaternion.hpp>
+#include <Propitious/Math/Vector2.hpp>
+#include <Propitious/Math/Vector3.hpp>
+#include <Propitious/Math/Vector4.hpp>
 #include <map>
 #include <string>
 

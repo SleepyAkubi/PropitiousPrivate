@@ -87,11 +87,6 @@ namespace Propitious
 		return true;
 	}
 
-	void bind(const GeometryBuffer& gbuffer)
-	{
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, gbuffer.fbo);
-	}
-
 	template <>
 	void unbind<GeometryBuffer>()
 	{

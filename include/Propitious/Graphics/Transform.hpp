@@ -3,9 +3,12 @@
 
 #include <Propitious/Common.hpp>
 
+#include <Propitious/Math/Vector3.hpp>
+#include <Propitious/Math/Quaternion.hpp>
+
 namespace Propitious
 {
-	struct PROPITIOUS_EXPORT Transform
+	struct Transform
 	{
 		Vector3 position = Vector3{ 0, 0, 0 };
 		Quaternion orientation = Quaternion::Identity;
@@ -14,7 +17,7 @@ namespace Propitious
 
 	inline Transform operator*(const Transform& parentSpace, const Transform& localSpace)
 	{
-		Transform worldSpace;
+		Transform worldSpace = Transform{};
 		worldSpace.position = parentSpace.position + parentSpace.orientation * (parentSpace.scale * localSpace.position);
 		worldSpace.orientation = parentSpace.orientation * localSpace.orientation;
 		worldSpace.scale = parentSpace.scale * (parentSpace.orientation * localSpace.scale);
@@ -30,7 +33,7 @@ namespace Propitious
 
 	inline Transform operator/(const Transform& worldSpace, const Transform& parentSpace)
 	{
-		Transform localSpace;
+		Transform localSpace = Transform{};
 		const Quaternion parentSpaceConjugation = conjugate(parentSpace.orientation);
 		localSpace.position = (parentSpaceConjugation * (worldSpace.position - parentSpace.position)) / parentSpace.scale;
 		localSpace.orientation = parentSpaceConjugation * worldSpace.orientation;
@@ -54,7 +57,7 @@ namespace Propitious
 	{
 		const Quaternion orientationConjugate = conjugate(transform.orientation);
 
-		Transform inverseTransform;
+		Transform inverseTransform = Transform{};
 		inverseTransform.position = (orientationConjugate * -transform.position) / transform.scale;
 		inverseTransform.orientation = orientationConjugate;
 		inverseTransform.scale = orientationConjugate * (Vector3{ 1, 1, 1 } / transform.scale);

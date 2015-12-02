@@ -328,5 +328,26 @@ namespace Propitious {
 		return mat;
 	}
 
+	Quaternion lookAtQuaternion(const Vector3& eye, const Vector3& centre, const Vector3& up)
+	{
+		const f32 similar = 0.001f;
 
+		if (length(centre - eye) < similar)
+			return Quaternion(); // You cannot look at where you are!
+
+		return matrix4ToQuaternion(lookAtMatrix(eye, centre, up));
+		/*Vector3 forwardVector = normalize(centre - eye);
+		f32 dotProduct = dot({0, 0, 1}, forwardVector);
+		if (std::abs(dotProduct - (-1.0f)) < 0.000001f)
+		{
+		return Quaternion(up.x, up.y, up.z, Constants<f32>::Pi());
+		}
+		if (std::abs(dotProduct - (1.0f)) < 0.000001f)
+		{
+		return Quaternion();
+		}
+		Radian rotationAngle = acos(dotProduct);
+		Vector3 rotationAxis = normalize(cross({0, 0, 1}, forwardVector));
+		return angleAxis(rotationAngle, rotationAxis);*/
+	}
 }

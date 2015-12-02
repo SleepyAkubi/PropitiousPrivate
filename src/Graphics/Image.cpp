@@ -9,7 +9,7 @@ namespace Propitious
 {
 	namespace Types
 	{
-		Image loadBMP(Image& image, const a8* path)
+		bool loadBMP(Image& image, const a8* path)
 		{
 
 			u8* header = (u8*)(defaultAllocator().allocate(54));
@@ -19,17 +19,17 @@ namespace Propitious
 			FILE* file = fopen(path, "rb");
 			if (!file)
 			{
-				// No file
+				return false;
 			}
 
 			if (fread(header, 1, 54, file) != 54)
 			{
-				// Not BMP
+				return false;
 			}
 
 			if (header[0] != 'B' || header[1] != 'M')
 			{
-				// Not BMP
+				return false;
 			}
 
 			dataPos = *(usize*)&(header[0x0A]);
@@ -51,12 +51,14 @@ namespace Propitious
 			image.pixels = (u8*)(defaultAllocator().allocate(imageSize));
 			fread(image.pixels, 1, imageSize, file);
 			fclose(file);
+
+			return true;
 		}
 	}
 
 	bool loadFromFile(Image& image, const a8* path)
 	{
-		image = Types::loadBMP(image, path);
+		return Types::loadBMP(image, path);
 	}
 
 	bool loadFromMemory(Image& image, u32 w, u32 h, ImageFormat f, const u8* p)

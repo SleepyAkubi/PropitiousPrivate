@@ -139,31 +139,4 @@ namespace Propitious
 
 		return result;
 	}
-
-
-	/*Matrix4 lookAt(const Vector3& eye, const Vector3& centre, const Vector3& up)
-	{
-		const Vector3 f(normalize(centre - eye));
-		const Vector3 s(normalize(cross(f, up)));
-		const Vector3 u(cross(s, f));
-
-		Matrix4 result;
-		result[0][0] = +s.x;
-		result[1][0] = +s.y;
-		result[2][0] = +s.z;
-
-		result[0][1] = +u.x;
-		result[1][1] = +u.y;
-		result[2][1] = +u.z;
-
-		result[0][2] = -f.x;
-		result[1][2] = -f.y;
-		result[2][2] = -f.z;
-
-		result[3][0] = -dot(s, eye);
-		result[3][1] = -dot(u, eye);
-		result[3][2] = +dot(f, eye);
-
-		return result;
-	}*/
 }

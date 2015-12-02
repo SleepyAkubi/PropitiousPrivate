@@ -84,6 +84,8 @@ namespace Propitious
 	PROPITIOUS_EXPORT Quaternion matrix4ToQuaternion(const Matrix4& m);
 
 	PROPITIOUS_EXPORT Matrix4 quaternionToMatrix4(const Quaternion& q);
+
+	PROPITIOUS_EXPORT Quaternion lookAtQuaternion(const Vector3& eye, const Vector3& centre, const Vector3& up);
 }
 
 #endif

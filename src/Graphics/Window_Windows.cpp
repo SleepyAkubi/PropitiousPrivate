@@ -33,7 +33,6 @@ namespace Propitious
 	Window::Window()
 	{
 		currentInstance = this;
-		extraData = defaultAllocator().allocate(sizeof(WindowHandle));
 	}
 
 	LRESULT CALLBACK windowMessageProcessor(HWND handle, UINT message, WPARAM messageParameter1, LPARAM messageParameter2)
@@ -84,6 +83,7 @@ namespace Propitious
 		const Dimensions& dimensions,
 		const WindowStyle style)
 	{
+		extraData = defaultAllocator().allocate(sizeof(WindowHandle));
 		WindowHandle* windowHandle = (WindowHandle*)extraData;
 		const a8* cTitle = title.c_str();
 

@@ -12,13 +12,13 @@ namespace Propitious
 {
 	struct PROPITIOUS_EXPORT Vertex
 	{
-		Vector3 position = Vector3{ 0, 0, 0 };
-		Vector2 texCoord = Vector2{ 0, 0 };
-		Colour colour = { 255, 255, 255 };
-		Vector3 normal = Vector3{ 0, 0, 0 };
+		Vector3 position;
+		Vector2 texCoord;
+		Colour colour;
+		Vector3 normal;
 	};
 
-	inline Vertex vertex(Vector3 position = { 0, 0, 0 }, Vector2 texCoord = Vector2{ 0, 0 }, Colour colour = { 255, 255, 255 }, Vector3 normal = { 0, 0, 0 })
+	inline Vertex vertex(Vector3 position = { 0, 0, 0 }, Vector2 texCoord = Vector2{ 0, 0 }, Vector3 normal = { 0, 0, 0 }, Colour colour = { 255, 255, 255 })
 	{
 		Vertex vertex = Vertex{};
 		vertex.position = position;

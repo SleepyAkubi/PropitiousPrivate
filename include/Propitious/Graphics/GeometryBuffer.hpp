@@ -24,6 +24,11 @@ namespace Propitious
 		u32 fbo;
 	};
 
+	inline void bind(const GeometryBuffer& buffer)
+	{
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, buffer.fbo);
+	}
+
 	PROPITIOUS_EXPORT bool create(GeometryBuffer& gbuffer, u32 width, u32 height);
 
 	template <typename T>

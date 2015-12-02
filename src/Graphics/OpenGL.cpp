@@ -7,7 +7,8 @@ namespace Propitious
 	{
 		void init()
 		{
-			glewInit();
+			if (glewInit() != GLEW_OK)
+				__debugbreak();
 
 			glEnable(GL_CULL_FACE);
 			glCullFace(GL_BACK);

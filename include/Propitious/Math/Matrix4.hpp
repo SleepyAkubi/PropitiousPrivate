@@ -3,6 +3,7 @@
 
 #include <Propitious/Common.hpp>
 #include <Propitious/Math/Vector4.hpp>
+#include <Propitious/Math/Vector3.hpp>
 
 namespace Propitious
 {
@@ -40,6 +41,32 @@ namespace Propitious
 	PROPITIOUS_EXPORT Matrix4 inverse(const Matrix4& m);
 
 	PROPITIOUS_EXPORT std::ostream& operator<<(std::ostream& os, const Matrix4& m);
+
+	Matrix4 lookAtMatrix(const Vector3& eye, const Vector3& centre, const Vector3& up)
+	{
+		const Vector3 f(normalize(centre - eye));
+		const Vector3 s(normalize(cross(f, up)));
+		const Vector3 u(cross(s, f));
+
+		Matrix4 result;
+		result.data[0].data[0] = +s.x;
+		result.data[1].data[0] = +s.y;
+		result.data[2].data[0] = +s.z;
+
+		result.data[0].data[1] = +u.x;
+		result.data[1].data[1] = +u.y;
+		result.data[2].data[1] = +u.z;
+
+		result.data[0].data[2] = -f.x;
+		result.data[1].data[2] = -f.y;
+		result.data[2].data[2] = -f.z;
+
+		result.data[3].data[0] = -dot(s, eye);
+		result.data[3].data[1] = -dot(u, eye);
+		result.data[3].data[2] = +dot(f, eye);
+
+		return result;
+	}
 
 }
 
