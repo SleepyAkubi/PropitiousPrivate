@@ -84,7 +84,7 @@ namespace Propitious
 		image.height = h;
 		image.format = f;
 
-		usize imageSize = w * h * static_cast<int>(f);
+		usize imageSize = w * h * (usize)f;
 
 		Allocator& allocator = defaultAllocator();
 
@@ -105,7 +105,7 @@ namespace Propitious
 		if (column >= image.width || row >= image.height)
 			return nullptr;
 
-		return image.pixels + (row * image.width + column) * static_cast<usize>(image.format);
+		return image.pixels + (row * image.width + column) *  (usize)image.format;
 	}
 
 	void setPixel(Image& image, u32 column, u64 row, const u32* pixel)
@@ -114,13 +114,13 @@ namespace Propitious
 			return;
 
 		u8* p = getPixel(image, column, row);
-		std::memcpy(p, pixel, static_cast<int>(image.format));
+		std::memcpy(p, pixel, (usize)image.format);
 	}
 
 
 	void flipVertically(Image& image)
 	{
-		usize pitch = image.width * static_cast<usize>(image.format);
+		usize pitch = image.width *  (usize)image.format;
 		u32 halfRows = image.height / 2;
 
 		Allocator& allocator = defaultAllocator();
@@ -128,8 +128,8 @@ namespace Propitious
 
 		for (u32 i = 0; i < halfRows; i++)
 		{
-			u8* row = image.pixels + (i * image.width) * static_cast<usize>(image.format);
-			u8* oppositeRow = image.pixels + ((image.height - i - 1) * image.width) * static_cast<usize>(image.format);
+			u8* row = image.pixels + (i * image.width) *  (usize)image.format;
+			u8* oppositeRow = image.pixels + ((image.height - i - 1) * image.width) *  (usize)image.format;
 
 			std::memcpy(rowBuffer, row, pitch);
 			std::memcpy(row, oppositeRow, pitch);
