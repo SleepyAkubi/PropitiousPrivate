@@ -53,58 +53,58 @@ namespace Propitious
 		mesh.drawType = data.drawType;
 		mesh.drawCount = (u32)length(data.indices);
 
-		glGenBuffers(1, &mesh.vbo);
-		glGenBuffers(1, &mesh.ibo);
+		OpenGL::GenBuffers(1, &mesh.vbo);
+		OpenGL::GenBuffers(1, &mesh.ibo);
 
-		glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * length(data.vertices), &data.vertices[0], GL_STATIC_DRAW);
+		OpenGL::BindBuffer(OpenGL::ARRAY_BUFFER, mesh.vbo);
+		OpenGL::BufferData(OpenGL::ARRAY_BUFFER, sizeof(Vertex) * length(data.vertices), &data.vertices[0], OpenGL::STATIC_DRAW);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(u32) * length(data.indices), &data.indices[0], GL_STATIC_DRAW);
+		OpenGL::BindBuffer(OpenGL::ELEMENT_ARRAY_BUFFER, mesh.ibo);
+		OpenGL::BufferData(OpenGL::ELEMENT_ARRAY_BUFFER, sizeof(u32) * length(data.indices), &data.indices[0], OpenGL::STATIC_DRAW);
 
 		return mesh;
 	}
 
 	void draw(const Mesh& mesh)
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.ibo);
+		OpenGL::BindBuffer(OpenGL::ARRAY_BUFFER, mesh.vbo);
+		OpenGL::BindBuffer(OpenGL::ELEMENT_ARRAY_BUFFER, mesh.ibo);
 
-		glVertexAttribPointer((u32)AttribLocation::Position,
+		OpenGL::VertexAttribPointer((u32)AttribLocation::Position,
 			3,
-			GL_FLOAT,
-			GL_FALSE,
+			OpenGL::FLOAT,
+			OpenGL::FALSE_,
 			sizeof(Vertex), // Stride
 			(const GLvoid*)(0));
-		glVertexAttribPointer((u32)AttribLocation::TexCoord,
+		OpenGL::VertexAttribPointer((u32)AttribLocation::TexCoord,
 			2,
-			GL_FLOAT,
-			GL_FALSE,
+			OpenGL::FLOAT,
+			OpenGL::FALSE_,
 			sizeof(Vertex), // Stride
 			(const GLvoid*)(sizeof(Vector3)));
-		glVertexAttribPointer((u32)AttribLocation::Colour,
+		OpenGL::VertexAttribPointer((u32)AttribLocation::Colour,
 			4,
-			GL_UNSIGNED_BYTE,
-			GL_TRUE,
+			OpenGL::UNSIGNED_BYTE,
+			OpenGL::TRUE_,
 			sizeof(Vertex), // Stride
 			(const GLvoid*)(sizeof(Vector3) + sizeof(Vector2)));
-		glVertexAttribPointer((u32)AttribLocation::Normal,
+		OpenGL::VertexAttribPointer((u32)AttribLocation::Normal,
 			3,
-			GL_FLOAT,
-			GL_FALSE,
+			OpenGL::FLOAT,
+			OpenGL::FALSE_,
 			sizeof(Vertex), // Stride
 			(const GLvoid*)(sizeof(Vector3) + sizeof(Vector2) + sizeof(Colour)));
 
-		glDrawElements((i32)mesh.drawType, mesh.drawCount, GL_UNSIGNED_INT, nullptr);
+		OpenGL::DrawElements((i32)mesh.drawType, mesh.drawCount, OpenGL::UNSIGNED_INT, nullptr);
 
-		//glDisableVertexAttribArray((u32)AttribLocation::Position);
-		//glDisableVertexAttribArray((u32)AttribLocation::TexCoord);
-		//glDisableVertexAttribArray((u32)AttribLocation::Colour);
+		//OpenGL::DisableVertexAttribArray((u32)AttribLocation::Position);
+		//OpenGL::DisableVertexAttribArray((u32)AttribLocation::TexCoord);
+		//OpenGL::DisableVertexAttribArray((u32)AttribLocation::Colour);
 	}
 
 	void destroy(Mesh& mesh)
 	{
-		glDeleteBuffers(1, &mesh.vbo);
-		glDeleteBuffers(1, &mesh.ibo);
+		OpenGL::DeleteBuffers(1, &mesh.vbo);
+		OpenGL::DeleteBuffers(1, &mesh.ibo);
 	}
 }

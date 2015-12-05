@@ -8,6 +8,7 @@
 #include "../src/Graphics/Image.cpp"
 #include "../src/Graphics/Mesh.cpp"
 #include "../src/Graphics/OpenGL.cpp"
+#include "../src/Graphics/OpenGLImp.cpp"
 #include "../src/Graphics/Scene/EntityWorld.cpp"
 #include "../src/Graphics/Scene/RenderSystem.cpp"
 #include "../src/Graphics/Scene/RenderTexture.cpp"
@@ -28,6 +29,5 @@
 
 #ifdef PROPITIOUS_SYSTEM_WINDOWS
 #include "../src/USB/Device_Windows.cpp"
-#include "../src/Networking/Server_Windows.cpp"
 #include "../src/Graphics/Window_Windows.cpp"
 #endif

@@ -3,11 +3,8 @@
 
 #include <Propitious/Graphics/Colour.hpp>
 
-#ifndef GLEW_STATIC
-#define GLEW_STATIC
-#endif
 
-#include <GL/glew.h>
+#include <Propitious/Graphics/OpenGLImp.hpp>
 
 #if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || \
 	defined(__WINDOWS__)
@@ -36,6 +33,5 @@ namespace Propitious
 		PROPITIOUS_EXPORT void init();
 	}
 }
-
 
 #endif

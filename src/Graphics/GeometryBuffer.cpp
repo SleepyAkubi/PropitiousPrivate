@@ -13,21 +13,21 @@ namespace Propitious
 		gbuffer.height = h;
 
 		if (!gbuffer.fbo)
-			glGenFramebuffersEXT(1, &gbuffer.fbo);
+			OpenGL::GenFramebuffers(1, &gbuffer.fbo);
 
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, gbuffer.fbo);
+		OpenGL::BindFramebuffer(OpenGL::FRAMEBUFFER, gbuffer.fbo);
 
 		u32 depthRenderBuffer;
 		// The depth buffer
-		glGenRenderbuffersEXT(1, &depthRenderBuffer);
-		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depthRenderBuffer);
-		glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT,
-			GL_DEPTH_COMPONENT,
+		OpenGL::GenRenderbuffers(1, &depthRenderBuffer);
+		OpenGL::BindRenderbuffer(OpenGL::RENDERBUFFER, depthRenderBuffer);
+		OpenGL::RenderbufferStorage(OpenGL::RENDERBUFFER,
+			OpenGL::DEPTH_COMPONENT,
 			(usize)gbuffer.width,
 			(usize)gbuffer.height);
-		glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT,
-			GL_DEPTH_ATTACHMENT,
-			GL_RENDERBUFFER_EXT,
+		OpenGL::FramebufferRenderbuffer(OpenGL::FRAMEBUFFER,
+			OpenGL::DEPTH_ATTACHMENT,
+			OpenGL::RENDERBUFFER,
 			depthRenderBuffer);
 
 		std::vector<u32> drawBuffers;
@@ -39,10 +39,10 @@ namespace Propitious
 			u32 type)
 		{
 			if (!tex.object)
-				glGenTextures(1, &tex.object);
+				OpenGL::GenTextures(1, &tex.object);
 
-			glBindTexture(GL_TEXTURE_2D, (u32)tex.object);
-			glTexImage2D(GL_TEXTURE_2D,
+			OpenGL::BindTexture(OpenGL::TEXTURE_2D, (u32)tex.object);
+			OpenGL::TexImage2D(OpenGL::TEXTURE_2D,
 				0,
 				internalFormat,
 				(usize)w,
@@ -54,32 +54,32 @@ namespace Propitious
 			tex.width = w;
 			tex.height = h;
 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_MAG_FILTER, OpenGL::LINEAR);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_MIN_FILTER, OpenGL::LINEAR);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_WRAP_S, OpenGL::REPEAT);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_WRAP_T, OpenGL::REPEAT);
 
-			glFramebufferTextureEXT(GL_FRAMEBUFFER_EXT,
+			OpenGL::FramebufferTexture(OpenGL::FRAMEBUFFER,
 				attachment,
 				tex.object,
 				0);
 
-			if (attachment != GL_DEPTH_ATTACHMENT_EXT)
+			if (attachment != OpenGL::DEPTH_ATTACHMENT)
 				drawBuffers.push_back(attachment);
 		};
 
-		addRT(gbuffer.diffuse, GL_COLOR_ATTACHMENT0_EXT, GL_RGB8, GL_RGB, GL_UNSIGNED_BYTE);
-		addRT(gbuffer.specular, GL_COLOR_ATTACHMENT1_EXT, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE);
-		addRT(gbuffer.normal, GL_COLOR_ATTACHMENT2_EXT, GL_RGB10_A2, GL_RGBA, GL_FLOAT);
-		addRT(gbuffer.depth, GL_DEPTH_ATTACHMENT_EXT, GL_DEPTH_COMPONENT24, GL_DEPTH_COMPONENT, GL_FLOAT);
+		addRT(gbuffer.diffuse, OpenGL::COLOR_ATTACHMENT0, OpenGL::RGB8, OpenGL::RGB, OpenGL::UNSIGNED_BYTE);
+		addRT(gbuffer.specular, OpenGL::COLOR_ATTACHMENT1, OpenGL::RGBA8, OpenGL::RGBA, OpenGL::UNSIGNED_BYTE);
+		addRT(gbuffer.normal, OpenGL::COLOR_ATTACHMENT2, OpenGL::RGB10_A2, OpenGL::RGBA, OpenGL::FLOAT);
+		addRT(gbuffer.depth, OpenGL::DEPTH_ATTACHMENT, OpenGL::DEPTH_COMPONENT24, OpenGL::DEPTH_COMPONENT, OpenGL::FLOAT);
 
-		glDrawBuffers((i32)drawBuffers.size(), &drawBuffers[0]);
+		OpenGL::DrawBuffers((i32)drawBuffers.size(), &drawBuffers[0]);
 
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glBindFramebuffer(GL_FRAMEBUFFER_EXT, 0);
+		OpenGL::BindTexture(OpenGL::TEXTURE_2D, 0);
+		OpenGL::BindFramebuffer(OpenGL::FRAMEBUFFER, 0);
 
-		if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) !=
-			GL_FRAMEBUFFER_COMPLETE_EXT)
+		if (OpenGL::CheckFramebufferStatus(OpenGL::FRAMEBUFFER) !=
+			OpenGL::FRAMEBUFFER_COMPLETE)
 		{
 			return false;
 		}
@@ -90,8 +90,8 @@ namespace Propitious
 	template <>
 	void unbind<GeometryBuffer>()
 	{
-		glFlush();
+		OpenGL::Flush();
 
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+		OpenGL::BindFramebuffer(OpenGL::FRAMEBUFFER, 0);
 	}
 }

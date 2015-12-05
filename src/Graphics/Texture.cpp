@@ -8,13 +8,13 @@ namespace Propitious
 		switch (format)
 		{
 		case ImageFormat::Grayscale:
-			return GL_LUMINANCE;
+			return OpenGL::LUMINANCE;
 		case ImageFormat::GrayscaleAlpha:
-			return GL_LUMINANCE_ALPHA;
+			return OpenGL::LUMINANCE_ALPHA;
 		case ImageFormat::RGB:
-			return (srgb ? GL_SRGB : GL_RGB);
+			return (srgb ? OpenGL::SRGB : OpenGL::RGB);
 		case ImageFormat::RGBA:
-			return (srgb ? GL_SRGB_ALPHA : GL_RGBA);
+			return (srgb ? OpenGL::SRGB_ALPHA : OpenGL::RGBA);
 		default:
 			return 0;
 		}
@@ -37,13 +37,13 @@ namespace Propitious
 		TextureWrapMode wrapMode)
 	{
 		if (!texture.object)
-			glGenTextures(1, &texture.object);
+			OpenGL::GenTextures(1, &texture.object);
 
 		texture.width = (usize)image.width;
 		texture.height = (usize)image.height;
 
-		glGenTextures(1, &texture.object);
-		glBindTexture(GL_TEXTURE_2D, texture.object);
+		OpenGL::GenTextures(1, &texture.object);
+		OpenGL::BindTexture(OpenGL::TEXTURE_2D, texture.object);
 
 		i32 minMagFilterGL;
 		i32 wrapModeGL;
@@ -51,47 +51,47 @@ namespace Propitious
 		switch (minMagFilter)
 		{
 		case TextureFilter::Linear:
-			minMagFilterGL = GL_LINEAR; break;
+			minMagFilterGL = OpenGL::LINEAR; break;
 		case TextureFilter::Nearest:
-			minMagFilterGL = GL_NEAREST; break;
+			minMagFilterGL = OpenGL::NEAREST; break;
 		}
 
 		switch (wrapMode)
 		{
 		case TextureWrapMode::Clamp:
-			wrapModeGL = GL_CLAMP; break;
+			wrapModeGL = OpenGL::CLAMP; break;
 		case TextureWrapMode::Repeat:
-			wrapModeGL = GL_REPEAT; break;
+			wrapModeGL = OpenGL::REPEAT; break;
 		case TextureWrapMode::ClampToEdge:
-			wrapModeGL = GL_CLAMP_TO_EDGE; break;
+			wrapModeGL = OpenGL::CLAMP_TO_EDGE; break;
 		case TextureWrapMode::ClampToBorder:
-			wrapModeGL = GL_CLAMP_TO_BORDER; break;
+			wrapModeGL = OpenGL::CLAMP_TO_BORDER; break;
 		case TextureWrapMode::MirroredRepeat:
-			wrapModeGL = GL_MIRRORED_REPEAT; break;
+			wrapModeGL = OpenGL::MIRRORED_REPEAT; break;
 
 		}
 
-		glTexParameteri(
-			GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapModeGL);
-		glTexParameteri(
-			GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapModeGL);
-		glTexParameteri(
-			GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minMagFilterGL);
-		glTexParameteri(
-			GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, minMagFilterGL);
+		OpenGL::TexParameteri(
+			OpenGL::TEXTURE_2D, OpenGL::TEXTURE_WRAP_S, wrapModeGL);
+		OpenGL::TexParameteri(
+			OpenGL::TEXTURE_2D, OpenGL::TEXTURE_WRAP_T, wrapModeGL);
+		OpenGL::TexParameteri(
+			OpenGL::TEXTURE_2D, OpenGL::TEXTURE_MIN_FILTER, minMagFilterGL);
+		OpenGL::TexParameteri(
+			OpenGL::TEXTURE_2D, OpenGL::TEXTURE_MAG_FILTER, minMagFilterGL);
 
-		glTexImage2D(GL_TEXTURE_2D,
+		OpenGL::TexImage2D(OpenGL::TEXTURE_2D,
 			0,
 			getInternalFormat(image.format, true),
 			(i32)texture.width,
 			(i32)texture.height,
 			0,
 			getInternalFormat(image.format, false),
-			GL_UNSIGNED_BYTE,
+			OpenGL::UNSIGNED_BYTE,
 			image.pixels);
 
 
-		glBindTexture(GL_TEXTURE_2D, 0);
+		OpenGL::BindTexture(OpenGL::TEXTURE_2D, 0);
 
 		return true;
 	}
@@ -102,11 +102,11 @@ namespace Propitious
 		if (position > 31)
 			position = 31;
 
-		glActiveTexture(GL_TEXTURE0 + position);
-		//glClientActiveTexture(GL_TEXTURE0 + position);
+		OpenGL::ActiveTexture(OpenGL::TEXTURE0 + position);
+		//OpenGL::ClientActiveTexture(OpenGL::TEXTURE0 + position);
 
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, texture.object);
-		glDisable(GL_TEXTURE_2D);
+		OpenGL::Enable(OpenGL::TEXTURE_2D);
+		OpenGL::BindTexture(OpenGL::TEXTURE_2D, texture.object);
+		OpenGL::Disable(OpenGL::TEXTURE_2D);
 	}
 }

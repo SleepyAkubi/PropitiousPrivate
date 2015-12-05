@@ -62,8 +62,8 @@ namespace Propitious
 				"How do you expect us to display the amazing graphics we spent hours on without shaders?\n"
 				"Well if that's missing, there's probably a load more gone as well...\n\n"
 				"Try revalidating your game, that usually helps out here...\n"
-				"If that doesn't fix it, please post on the game forums or Google around, you might find a solution; either method works.\n\n"
-				"All other error messages have a meaningless error code so here's a bunch of random numbers that will help you with nothing:\n"
+				"If that doesn't fix it, please post on the game forums or GooOpenGL::e around, you might find a solution; either method works.\n\n"
+				"All other error messages have a meaninOpenGL::ess error code so here's a bunch of random numbers that will help you with nothing:\n"
 				"17637065fx00c2334\n"
 				"Oh! We added some random f's, x's and c's in there just to make it more professional like the ones you get on BSoDs to make it seem scary.\n"
 				"It's not actually bad so don't be afraid... Just follow the advice, yeah... That should fix it."
@@ -111,7 +111,7 @@ namespace Propitious
 	ShaderProgram::~ShaderProgram()
 	{
 		if (m_object)
-			glDeleteProgram(m_object);
+			OpenGL::DeleteProgram(m_object);
 	}
 
 	const bool ShaderProgram::attachShaderFromFile(ShaderType type,
@@ -125,31 +125,31 @@ namespace Propitious
 		const std::string& source)
 	{
 		if (!m_object)
-			m_object = glCreateProgram();
+			m_object = OpenGL::CreateProgram();
 
 		const char* shaderSource = source.c_str();
 
 		u32 shader;
 		if (type == ShaderType::Vertex)
-			shader = glCreateShader(GL_VERTEX_SHADER);
+			shader = OpenGL::CreateShader(OpenGL::VERTEX_SHADER);
 		else if (type == ShaderType::Fragment)
-			shader = glCreateShader(GL_FRAGMENT_SHADER);
+			shader = OpenGL::CreateShader(OpenGL::FRAGMENT_SHADER);
 		else
 			shader = 0;
 
-		glShaderSource(shader, 1, &shaderSource, nullptr);
-		glCompileShader(shader);
+		OpenGL::ShaderSource(shader, 1, &shaderSource, nullptr);
+		OpenGL::CompileShader(shader);
 
 		i32 status;
-		glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-		if (status == GL_FALSE)
+		OpenGL::GetShaderiv(shader, OpenGL::COMPILE_STATUS, &status);
+		if (status == OpenGL::FALSE_)
 		{
 			std::string msg("Compile failure in shader: \n");
 
 			i32 infoLogLength;
-			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
+			OpenGL::GetShaderiv(shader, OpenGL::INFO_LOG_LENGTH, &infoLogLength);
 			char* strInfoLog = new char[infoLogLength + 1];
-			glGetShaderInfoLog(shader, infoLogLength, nullptr, strInfoLog);
+			OpenGL::GetShaderInfoLog(shader, infoLogLength, nullptr, strInfoLog);
 			msg.append(strInfoLog);
 
 			std::cout << strInfoLog << std::endl;
@@ -160,12 +160,12 @@ namespace Propitious
 
 			msg.append("\n");
 
-			glDeleteShader(shader);
+			OpenGL::DeleteShader(shader);
 
 			return false;
 		}
 
-		glAttachShader(m_object, shader);
+		OpenGL::AttachShader(m_object, shader);
 
 		return true;
 	}
@@ -173,13 +173,13 @@ namespace Propitious
 	const void ShaderProgram::use() const
 	{
 		if (!isInUse())
-			glUseProgram(m_object);
+			OpenGL::UseProgram(m_object);
 	}
 
 	const bool ShaderProgram::isInUse() const
 	{
 		i32 currentProgram = 0;
-		glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
+		OpenGL::GetIntegerv(OpenGL::CURRENT_PROGRAM, &currentProgram);
 
 		return (currentProgram == (i32)m_object);
 	}
@@ -187,7 +187,7 @@ namespace Propitious
 	const void ShaderProgram::stopUsing() const
 	{
 		if (isInUse())
-			glUseProgram(0);
+			OpenGL::UseProgram(0);
 	}
 
 	const void ShaderProgram::checkInUse() const
@@ -199,22 +199,22 @@ namespace Propitious
 	const bool ShaderProgram::link()
 	{
 		if (!m_object)
-			m_object = glCreateProgram();
+			m_object = OpenGL::CreateProgram();
 
 		if (!m_isLinked)
 		{
-			glLinkProgram(m_object);
+			OpenGL::LinkProgram(m_object);
 
 			i32 status;
-			glGetProgramiv(m_object, GL_LINK_STATUS, &status);
-			if (status == GL_FALSE)
+			OpenGL::GetProgramiv(m_object, OpenGL::LINK_STATUS, &status);
+			if (status == OpenGL::FALSE_)
 			{
 				std::string msg("ShaderProgram linking failure: \n");
 
 				i32 infoLogLength;
-				glGetProgramiv(m_object, GL_INFO_LOG_LENGTH, &infoLogLength);
+				OpenGL::GetProgramiv(m_object, OpenGL::INFO_LOG_LENGTH, &infoLogLength);
 				char* strInfoLog = new char[infoLogLength + 1];
-				glGetProgramInfoLog(m_object, infoLogLength, nullptr, strInfoLog);
+				OpenGL::GetProgramInfoLog(m_object, infoLogLength, nullptr, strInfoLog);
 				msg.append(strInfoLog);
 
 				std::cout << strInfoLog << std::endl;
@@ -225,7 +225,7 @@ namespace Propitious
 
 				msg.append("\n");
 
-				glDeleteProgram(m_object);
+				OpenGL::DeleteProgram(m_object);
 				m_object = 0;
 
 				m_isLinked = false;
@@ -240,7 +240,7 @@ namespace Propitious
 
 	const void ShaderProgram::bindAttribLocation(u32 location, const std::string& name) const
 	{
-		glBindAttribLocation(m_object, location, name.c_str());
+		OpenGL::BindAttribLocation(m_object, location, name.c_str());
 		m_attribLocations[name] = location;
 	}
 
@@ -250,7 +250,7 @@ namespace Propitious
 		if (found != m_attribLocations.end())
 			return found->second;
 
-		i32 loc = glGetAttribLocation(m_object, name.c_str());
+		i32 loc = OpenGL::GetAttribLocation(m_object, name.c_str());
 		m_attribLocations[name] = loc;
 		return loc;
 	}
@@ -261,7 +261,7 @@ namespace Propitious
 		if (found != m_uniformLocations.end())
 			return found->second;
 
-		i32 loc = glGetUniformLocation(m_object, name.c_str());
+		i32 loc = OpenGL::GetUniformLocation(m_object, name.c_str());
 		m_uniformLocations[name] = loc;
 		return loc;
 	}
@@ -272,7 +272,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniform1f(loc, x);
+		OpenGL::Uniform1f(loc, x);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name, f32 x, f32 y) const
@@ -281,7 +281,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniform2f(loc, x, y);
+		OpenGL::Uniform2f(loc, x, y);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name, f32 x, f32 y, f32 z) const
@@ -290,7 +290,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniform3f(loc, x, y, z);
+		OpenGL::Uniform3f(loc, x, y, z);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name,
@@ -303,7 +303,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniform4f(loc, x, y, z, w);
+		OpenGL::Uniform4f(loc, x, y, z, w);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name, u32 x) const
@@ -312,7 +312,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniform1ui(loc, x);
+		OpenGL::Uniform1ui(loc, x);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name, i32 x) const
@@ -321,7 +321,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniform1i(loc, x);
+		OpenGL::Uniform1i(loc, x);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name, bool x) const
@@ -330,7 +330,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniform1i(loc, (int)x);
+		OpenGL::Uniform1i(loc, (int)x);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name, const Vector2& v) const
@@ -339,7 +339,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniform2fv(loc, 1, &v.data[0]);
+		OpenGL::Uniform2fv(loc, 1, &v.data[0]);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name, const Vector3& v) const
@@ -348,7 +348,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniform3fv(loc, 1, &v.data[0]);
+		OpenGL::Uniform3fv(loc, 1, &v.data[0]);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name, const Vector4& v) const
@@ -357,7 +357,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniform4fv(loc, 1, &v.data[0]);
+		OpenGL::Uniform4fv(loc, 1, &v.data[0]);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name, const Matrix4& m) const
@@ -366,7 +366,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniformMatrix4fv(loc, 1, GL_FALSE, &m.data[0].data[0]);
+		OpenGL::UniformMatrix4fv(loc, 1, OpenGL::FALSE_, &m.data[0].data[0]);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name, const Quaternion& t) const
@@ -375,7 +375,7 @@ namespace Propitious
 		i32 loc = getUniformLocation(name);
 		if (loc == -1)
 			return;
-		glUniform4fv(loc, 1, &t.data[0]);
+		OpenGL::Uniform4fv(loc, 1, &t.data[0]);
 	}
 
 	const void ShaderProgram::setUniform(const std::string& name, const Transform& t) const

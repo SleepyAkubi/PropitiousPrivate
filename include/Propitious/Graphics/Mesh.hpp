@@ -23,14 +23,14 @@ namespace Propitious
 
 	enum class PROPITIOUS_EXPORT DrawType : i32
 	{
-		Points = GL_POINTS,
-		Lines = GL_LINES,
-		LineStrop = GL_LINE_STRIP,
-		LineLoop = GL_LINE_LOOP,
-		Triangles = GL_TRIANGLES,
-		TriangleStrip = GL_TRIANGLE_STRIP,
-		TriangleFan = GL_TRIANGLE_FAN,
-		Quads = GL_QUADS
+		Points = OpenGL::POINTS,
+		Lines = OpenGL::LINES,
+		LineStrop = OpenGL::LINE_STRIP,
+		LineLoop = OpenGL::LINE_LOOP,
+		Triangles = OpenGL::TRIANGLES,
+		TriangleStrip = OpenGL::TRIANGLE_STRIP,
+		TriangleFan = OpenGL::TRIANGLE_FAN,
+		Quads = OpenGL::QUADS
 	};
 
 	struct PROPITIOUS_EXPORT MeshData

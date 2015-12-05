@@ -7,22 +7,21 @@ namespace Propitious
 	{
 		void init()
 		{
-			if (glewInit() != GLEW_OK)
-				__debugbreak();
+			OpenGL::System::LoadFunctions();
 
-			glEnable(GL_CULL_FACE);
-			glCullFace(GL_BACK);
-			glEnable(GL_DEPTH_TEST);
-			glDepthFunc(GL_LESS);
+			OpenGL::Enable(OpenGL::CULL_FACE);
+			OpenGL::CullFace(OpenGL::BACK);
+			OpenGL::Enable(OpenGL::DEPTH_TEST);
+			OpenGL::DepthFunc(OpenGL::LESS);
 
-			glClearColor(0, 0, 0, 1);
+			OpenGL::ClearColor(0, 0, 0, 1);
 
-			glEnableVertexAttribArray((u32)AttribLocation::Position);
-			glEnableVertexAttribArray((u32)AttribLocation::TexCoord);
-			glEnableVertexAttribArray((u32)AttribLocation::Colour);
-			glEnableVertexAttribArray((u32)AttribLocation::Normal);
+			OpenGL::EnableVertexAttribArray((u32)AttribLocation::Position);
+			OpenGL::EnableVertexAttribArray((u32)AttribLocation::TexCoord);
+			OpenGL::EnableVertexAttribArray((u32)AttribLocation::Colour);
+			OpenGL::EnableVertexAttribArray((u32)AttribLocation::Normal);
 
-			glBlendFunc(GL_ONE, GL_ONE);
+			OpenGL::BlendFunc(OpenGL::ONE, OpenGL::ONE);
 		}
 	}
 }

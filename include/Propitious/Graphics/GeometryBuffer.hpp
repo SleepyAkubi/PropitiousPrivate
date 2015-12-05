@@ -26,7 +26,7 @@ namespace Propitious
 
 	inline void bind(const GeometryBuffer& buffer)
 	{
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, buffer.fbo);
+		OpenGL::BindFramebuffer(OpenGL::FRAMEBUFFER, buffer.fbo);
 	}
 
 	PROPITIOUS_EXPORT bool create(GeometryBuffer& gbuffer, u32 width, u32 height);

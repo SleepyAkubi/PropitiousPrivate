@@ -51,9 +51,9 @@ namespace Propitious
 		camera.viewportAspectRatio = (f32)renderSystem.frameBufferSize.width / (f32)renderSystem.frameBufferSize.height;
 		renderSystem.render();
 
-		glViewport(0, 0, renderSystem.frameBufferSize.width, renderSystem.frameBufferSize.height);
-		glClearColor(0, 0, 0, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		OpenGL::Viewport(0, 0, renderSystem.frameBufferSize.width, renderSystem.frameBufferSize.height);
+		OpenGL::ClearColor(0, 0, 0, 1);
+		OpenGL::Clear(OpenGL::COLOR_BUFFER_BIT | OpenGL::DEPTH_BUFFER_BIT);
 
 		auto& shaders = renderSystem.context.shaderHolder->get("target");
 		shaders.use();

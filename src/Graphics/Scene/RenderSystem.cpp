@@ -94,8 +94,8 @@ namespace Propitious
 
 		bind(geometryBuffer);
 		{
-			glViewport(0, 0, geometryBuffer.width, geometryBuffer.height);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			OpenGL::Viewport(0, 0, geometryBuffer.width, geometryBuffer.height);
+			OpenGL::Clear(OpenGL::COLOR_BUFFER_BIT | OpenGL::DEPTH_BUFFER_BIT);
 
 			shaders.use();
 			shaders.setUniform("u_camera", matrix(*camera));
@@ -117,7 +117,7 @@ namespace Propitious
 
 				draw(component.mesh);
 			}
-			glFlush();
+			OpenGL::Flush();
 		}
 		unbind<GeometryBuffer>();
 	}
@@ -132,20 +132,20 @@ namespace Propitious
 
 		bind(lightBuffer);
 		{
-			glClearColor(0, 0, 0, 0);
-			glViewport(0, 0, lightBuffer.width, lightBuffer.height);
-			glClear(GL_COLOR_BUFFER_BIT);
+			OpenGL::ClearColor(0, 0, 0, 0);
+			OpenGL::Viewport(0, 0, lightBuffer.width, lightBuffer.height);
+			OpenGL::Clear(OpenGL::COLOR_BUFFER_BIT);
 
-			glDepthMask(GL_FALSE);
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_ONE, GL_ONE);
+			OpenGL::DepthMask(OpenGL::FALSE_);
+			OpenGL::Enable(OpenGL::BLEND);
+			OpenGL::BlendFunc(OpenGL::ONE, OpenGL::ONE);
 
 			renderAmbientLight();
 			renderDirectionalLights();
 			renderPointLights();
 			renderSpotLights();
 
-			glDisable(GL_BLEND);
+			OpenGL::Disable(OpenGL::BLEND);
 		}
 
 		unbind<RenderTexture>();
@@ -159,9 +159,9 @@ namespace Propitious
 
 		bind(outTexture);
 		{
-			glClearColor(1, 1, 1, 1);
-			glViewport(0, 0, outTexture.width, outTexture.height);
-			glClear(GL_COLOR_BUFFER_BIT);
+			OpenGL::ClearColor(1, 1, 1, 1);
+			OpenGL::Viewport(0, 0, outTexture.width, outTexture.height);
+			OpenGL::Clear(OpenGL::COLOR_BUFFER_BIT);
 
 			auto& shaders = context.shaderHolder->get("target");
 

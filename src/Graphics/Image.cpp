@@ -5,6 +5,9 @@
 #include <iostream>
 #include <Propitious/Memory/Allocator.hpp>
 
+#include <algorithm>
+#include <iterator>
+
 namespace Propitious
 {
 	namespace Types
@@ -48,9 +51,22 @@ namespace Propitious
 				dataPos = 54;
 			}
 
-			image.pixels = (u8*)(defaultAllocator().allocate(imageSize));
-			fread(image.pixels, 1, imageSize, file);
+			u8* temporary = (u8*)(defaultAllocator().allocate(imageSize));
+
+			fread(temporary, 1, imageSize, file);
 			fclose(file);
+
+			// B -> R
+			u8 tempRGB;
+			for (int i = 0; i < imageSize; i += 3)
+			{
+				tempRGB = temporary[i];
+				temporary[i] = temporary[i + 2];
+				temporary[i + 2] = tempRGB;
+			}
+
+			image.pixels = temporary;
+			flipVertically(image);
 
 			return true;
 		}

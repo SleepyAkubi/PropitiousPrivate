@@ -6,7 +6,7 @@ namespace Propitious
 	void create(RenderTexture& texture, u32 w, u32 h, RenderTexture::TextureType t)
 	{
 		if (!texture.fbo)
-			glGenFramebuffersEXT(1, &texture.fbo);
+			OpenGL::GenFramebuffers(1, &texture.fbo);
 
 		if (w == texture.width && h == texture.height && t == texture.type)
 			return;
@@ -15,85 +15,85 @@ namespace Propitious
 		texture.width = w;
 		texture.height = h;
 
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, texture.fbo);
+		OpenGL::BindFramebuffer(OpenGL::FRAMEBUFFER, texture.fbo);
 
 		u32 depthRenderBuffer;
-		glGenRenderbuffersEXT(1, &depthRenderBuffer);
-		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depthRenderBuffer);
-		glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, texture.width, texture.height);
-		glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER_EXT, depthRenderBuffer);
+		OpenGL::GenRenderbuffers(1, &depthRenderBuffer);
+		OpenGL::BindRenderbuffer(OpenGL::RENDERBUFFER, depthRenderBuffer);
+		OpenGL::RenderbufferStorage(OpenGL::RENDERBUFFER, OpenGL::DEPTH_COMPONENT, texture.width, texture.height);
+		OpenGL::FramebufferRenderbuffer(OpenGL::FRAMEBUFFER, OpenGL::DEPTH_ATTACHMENT, OpenGL::RENDERBUFFER, depthRenderBuffer);
 
 		if (texture.type & RenderTexture::Colour)
 		{
 			if (!texture.colourTexture.object)
-				glGenTextures(1, &texture.colourTexture.object);
+				OpenGL::GenTextures(1, &texture.colourTexture.object);
 
-			glBindTexture(GL_TEXTURE_2D, (u32)texture.colourTexture.object);
+			OpenGL::BindTexture(OpenGL::TEXTURE_2D, (u32)texture.colourTexture.object);
 
 			if (texture.type == RenderTexture::Lighting)
 			{
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB10_A2, (u32)texture.width, (u32)texture.height, 0, GL_RGB, GL_FLOAT, 0);
+				OpenGL::TexImage2D(OpenGL::TEXTURE_2D, 0, OpenGL::RGB10_A2, (u32)texture.width, (u32)texture.height, 0, OpenGL::RGB, OpenGL::FLOAT, 0);
 			}
 			else
 			{
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, (u32)texture.width, (u32)texture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+				OpenGL::TexImage2D(OpenGL::TEXTURE_2D, 0, OpenGL::RGB8, (u32)texture.width, (u32)texture.height, 0, OpenGL::RGB, OpenGL::UNSIGNED_BYTE, 0);
 			}
 
 			texture.colourTexture.width = texture.width;
 			texture.colourTexture.height = texture.height;
 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_MAG_FILTER, OpenGL::NEAREST);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_MIN_FILTER, OpenGL::NEAREST);
 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_WRAP_S, OpenGL::CLAMP_TO_EDGE);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_WRAP_T, OpenGL::CLAMP_TO_EDGE);
 
-			glFramebufferTextureEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, texture.colourTexture.object, 0);
+			OpenGL::FramebufferTexture(OpenGL::FRAMEBUFFER, OpenGL::COLOR_ATTACHMENT0, texture.colourTexture.object, 0);
 		}
 		else {
 			if (!texture.depthTexture.object)
-				glGenTextures(1, &texture.depthTexture.object);
+				OpenGL::GenTextures(1, &texture.depthTexture.object);
 
-			glBindTexture(GL_TEXTURE_2D, (u32)texture.depthTexture.object);
+			OpenGL::BindTexture(OpenGL::TEXTURE_2D, (u32)texture.depthTexture.object);
 
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, (u32)texture.width, (u32)texture.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+			OpenGL::TexImage2D(OpenGL::TEXTURE_2D, 0, OpenGL::DEPTH_COMPONENT24, (u32)texture.width, (u32)texture.height, 0, OpenGL::DEPTH_COMPONENT, OpenGL::FLOAT, 0);
 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_MAG_FILTER, OpenGL::NEAREST);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_MIN_FILTER, OpenGL::NEAREST);
 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_WRAP_S, OpenGL::CLAMP_TO_EDGE);
+			OpenGL::TexParameteri(OpenGL::TEXTURE_2D, OpenGL::TEXTURE_WRAP_T, OpenGL::CLAMP_TO_EDGE);
 
-			glFramebufferTextureEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, texture.depthTexture.object, 0);
+			OpenGL::FramebufferTexture(OpenGL::FRAMEBUFFER, OpenGL::DEPTH_ATTACHMENT, texture.depthTexture.object, 0);
 		}
 
 		std::vector<u32> drawBuffers;
 		if (texture.type & RenderTexture::Colour || texture.type & RenderTexture::Lighting)
 		{
-			drawBuffers.push_back(GL_COLOR_ATTACHMENT0_EXT);
+			drawBuffers.push_back(OpenGL::COLOR_ATTACHMENT0);
 		}
 		else
 		{
-			drawBuffers.push_back(GL_DEPTH_ATTACHMENT_EXT);
+			drawBuffers.push_back(OpenGL::DEPTH_ATTACHMENT);
 		}
-		glDrawBuffers((i32)drawBuffers.size(), &drawBuffers[0]);
+		OpenGL::DrawBuffers((i32)drawBuffers.size(), &drawBuffers[0]);
 	}
 
 	void bind(const RenderTexture& renderTexture)
 	{
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, renderTexture.fbo);
+		OpenGL::BindFramebuffer(OpenGL::FRAMEBUFFER, renderTexture.fbo);
 	}
 
 	template <>
 	inline void flush<RenderTexture>()
 	{
-		glFlush();
+		OpenGL::Flush();
 	}
 
 	template <>
 	inline void unbind<RenderTexture>()
 	{
-		glFlush();
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+		OpenGL::Flush();
+		OpenGL::BindFramebuffer(OpenGL::FRAMEBUFFER, 0);
 	}
 }
