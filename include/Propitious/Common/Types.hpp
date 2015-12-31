@@ -23,6 +23,7 @@ namespace Propitious
 
 	using f32 = float;
 	using f64 = double;
+	using f128 = long double;
 
 #ifdef PROPITIOUS_COMPILER_CLANG
 	using i128 = signed __int128;

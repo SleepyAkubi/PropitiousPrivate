@@ -10,7 +10,7 @@
 namespace Propitious
 {
 	using NodeId = u32;
-	const NodeId EmptyNodeId = static_cast<NodeId>(-1);
+	const NodeId EmptyNodeId = (NodeId)(-1);
 
 	struct PROPITIOUS_EXPORT SceneGraph
 	{
@@ -37,7 +37,7 @@ namespace Propitious
 		SceneGraph(Allocator& allocator = defaultAllocator());
 		~SceneGraph();
 
-		void allocate(NodeId length);
+		void allocate(Allocator::vol length);
 
 		NodeId create(EntityId id, const Transform& transform);
 		void destroy(NodeId id);
@@ -77,7 +77,6 @@ namespace Propitious
 		void updateWorld(NodeId id);
 
 		Transform getLocalTransform(NodeId id) const;
-
 		Transform getWorldTransform(NodeId id) const;
 
 		void setLocalTransform(NodeId id, const Transform& t);

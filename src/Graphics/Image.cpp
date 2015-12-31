@@ -35,10 +35,10 @@ namespace Propitious
 				return false;
 			}
 
-			dataPos = *(usize*)&(header[0x0A]);
-			imageSize = *(usize*)&(header[0x22]);
-			image.width = *(usize*)&(header[0x12]);
-			image.height = *(usize*)&(header[0x16]);
+			dataPos = *(u32*)&(header[0x0A]);
+			imageSize = *(u32*)&(header[0x22]);
+			image.width = *(u32*)&(header[0x12]);
+			image.height = *(u32*)&(header[0x16]);
 			image.format = ImageFormat::RGB;
 
 			if (imageSize == 0)
@@ -57,8 +57,8 @@ namespace Propitious
 			fclose(file);
 
 			// B -> R
-			u8 tempRGB;
-			for (int i = 0; i < imageSize; i += 3)
+			u8 tempRGB = 0;
+			for (usize i = 0; i < imageSize; i += 3)
 			{
 				tempRGB = temporary[i];
 				temporary[i] = temporary[i + 2];

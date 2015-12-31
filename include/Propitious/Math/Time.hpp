@@ -39,7 +39,7 @@ namespace Propitious
 		{
 			static a8 buffer[1024];
 			f32 seconds = asSeconds();
-			time_t secondsCeiling = Math::floor(seconds);
+			time_t secondsCeiling = (time_t) Math::floor(seconds);
 			tm* time = gmtime((&secondsCeiling));
 			strftime(buffer, 1024, format, time);
 			return buffer;

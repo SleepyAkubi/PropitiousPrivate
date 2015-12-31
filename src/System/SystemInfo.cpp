@@ -15,7 +15,7 @@ namespace Propitious
 
 		inline i8 findPhysicalCores()
 		{		
-			return sysinfo.dwNumberOfProcessors;
+			return (i8)sysinfo.dwNumberOfProcessors;
 		}
 
 		inline i8 findLogicalCores()

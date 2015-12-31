@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Propitious", "Propitious.vcxproj", "{CF898A5E-0334-449D-9E1C-2741B914B06A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PropitiGame", "..\PropitiGame\PropitiGame.vcxproj", "{15899C8A-85EA-49A0-9E10-9AB356582B4A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{AFCDDED2-3468-4A6F-A696-309D9CD642C0}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PropitiTest", "..\PropitiTest\PropitiTest.vcxproj", "{1B23CC3E-4CDD-4DC2-8E0C-B734D022323B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PropitiTest", "PropitiTest\PropitiTest.vcxproj", "{1B23CC3E-4CDD-4DC2-8E0C-B734D022323B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CF898A5E-0334-449D-9E1C-2741B914B06A} = {CF898A5E-0334-449D-9E1C-2741B914B06A}
 	EndProjectSection
@@ -30,14 +26,6 @@ Global
 		{CF898A5E-0334-449D-9E1C-2741B914B06A}.Release|x64.Build.0 = Release|x64
 		{CF898A5E-0334-449D-9E1C-2741B914B06A}.Release|x86.ActiveCfg = Release|Win32
 		{CF898A5E-0334-449D-9E1C-2741B914B06A}.Release|x86.Build.0 = Release|Win32
-		{15899C8A-85EA-49A0-9E10-9AB356582B4A}.Debug|x64.ActiveCfg = Debug|x64
-		{15899C8A-85EA-49A0-9E10-9AB356582B4A}.Debug|x64.Build.0 = Debug|x64
-		{15899C8A-85EA-49A0-9E10-9AB356582B4A}.Debug|x86.ActiveCfg = Debug|Win32
-		{15899C8A-85EA-49A0-9E10-9AB356582B4A}.Debug|x86.Build.0 = Debug|Win32
-		{15899C8A-85EA-49A0-9E10-9AB356582B4A}.Release|x64.ActiveCfg = Release|x64
-		{15899C8A-85EA-49A0-9E10-9AB356582B4A}.Release|x64.Build.0 = Release|x64
-		{15899C8A-85EA-49A0-9E10-9AB356582B4A}.Release|x86.ActiveCfg = Release|Win32
-		{15899C8A-85EA-49A0-9E10-9AB356582B4A}.Release|x86.Build.0 = Release|Win32
 		{1B23CC3E-4CDD-4DC2-8E0C-B734D022323B}.Debug|x64.ActiveCfg = Debug|x64
 		{1B23CC3E-4CDD-4DC2-8E0C-B734D022323B}.Debug|x64.Build.0 = Debug|x64
 		{1B23CC3E-4CDD-4DC2-8E0C-B734D022323B}.Debug|x86.ActiveCfg = Debug|Win32
@@ -49,8 +37,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{15899C8A-85EA-49A0-9E10-9AB356582B4A} = {AFCDDED2-3468-4A6F-A696-309D9CD642C0}
 	EndGlobalSection
 EndGlobal

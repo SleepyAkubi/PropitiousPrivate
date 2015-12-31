@@ -26,7 +26,7 @@ namespace Propitious
 			if (usbdevice.handle.handle == INVALID_HANDLE_VALUE)
 			{
 				MessageBoxA(0, "INVALID HANDLE!", "Error!", MB_OK);
-				u8 test =  GetLastError();
+				u8 test = (i8)GetLastError();
 				return false;
 			}
 
@@ -34,12 +34,12 @@ namespace Propitious
 			if (!GetCommState(usbdevice.handle.handle, &usbdevice.handle.deviceControlBlock))
 			{
 				MessageBoxA(0, "FAILED TO GET COMM STATE!", "Error!", MB_OK);
-				u8 test = GetLastError();
+				u8 test = (i8)GetLastError();
 				return false;
 			}
 
 			usbdevice.handle.deviceControlBlock.BaudRate = baudRate;
-			usbdevice.handle.deviceControlBlock.ByteSize = byteSize;
+			usbdevice.handle.deviceControlBlock.ByteSize = (BYTE)byteSize;
 			usbdevice.handle.deviceControlBlock.Parity = parity;
 			usbdevice.handle.deviceControlBlock.fParity = parity;
 			if (stopBits == 1)
@@ -52,14 +52,14 @@ namespace Propitious
 			if (!SetCommState(usbdevice.handle.handle, &usbdevice.handle.deviceControlBlock))
 			{
 				MessageBoxA(0, "FAILED TO SET COMM STATE!", "Error!", MB_OK);
-				u8 test = GetLastError();
+				u8 test = (i8)GetLastError();
 				return false;
 			}
 
 			if (!SetCommMask(usbdevice.handle.handle, EV_TXEMPTY | EV_RXCHAR))
 			{
 				MessageBoxA(0, "FAILED TO SET COMM MASK!", "Error!", MB_OK);
-				u8 test = GetLastError();
+				u8 test = (i8)GetLastError();
 				return false;
 			}
 
@@ -78,7 +78,7 @@ namespace Propitious
 			b8 response = WriteFile(usbdevice.handle.handle, data, length, &bytesWritten, 0);
 			if (response == false)
 			{
-				u8 test = GetLastError();
+				u8 test = (i8)GetLastError();
 				std::string text = "Failed to write: " + std::to_string(test);
 				MessageBoxA(0, text.c_str(), "Error!", MB_OK);
 				return false;
