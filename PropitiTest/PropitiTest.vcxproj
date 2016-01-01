@@ -97,7 +97,7 @@
       <AdditionalDependencies>Propitious.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>copy $(SolutionDir)build\bin-x64\Propitious.dll $(SolutionDir)PropitiTest\x64\Debug\</Command>
+      <Command>copy "$(SolutionDir)build\bin-x64\Propitious.dll" "$(SolutionDir)PropitiTest\x64\Debug\"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
