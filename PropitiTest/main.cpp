@@ -199,24 +199,25 @@ void Test()
 	//world.renderSystem.allocate(16);
 
 	EntityId crate = world.createEntity();
-	EntityId player = world.createEntity();
+	//EntityId player = world.createEntity();
 
-	world.components[player] = ComponentName;
+	//world.components[player] = ComponentName;
 	world.components[crate] = ComponentName;
-	world.names[player] = NameComponent{ "Cat" };
+	//world.names[player] = NameComponent{ "Cat" };
 	world.names[crate] = NameComponent{ "crate" };
 
 	Transform t{};
 	t.position = { 0, 0, -2 };
+	//world.camera.transform.position = { -2, 0, 0 };
 
-	Transform t2{};
-	t2.position = { -1, 0, 2 };
+	//Transform t2{};
+	//t2.position = { -1, 0, 2 };
 
-	NodeId p = world.sceneGraph.create(player, t);
-	NodeId c = world.sceneGraph.create(crate, t2);
+	//NodeId p = world.sceneGraph.create(player, t);
+	NodeId c = world.sceneGraph.create(crate, t);
 
-	world.renderSystem.create(p, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("cat") });
-	//world.renderSystem.create(c, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("default") });
+	//world.renderSystem.create(p, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("cat") });
+	world.renderSystem.create(c, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("default") });
 }
 
 
