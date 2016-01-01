@@ -42,7 +42,7 @@ namespace Propitious
 	}
 	RenderSystem::Instance RenderSystem::create(EntityId id, const RenderComponent& component)
 	{
-		if (data.capacity == data.length)
+		if (data.capacity == data.length || data.capacity == 0)
 			allocate(2 * data.length + 1);
 
 		const Instance firstFree = data.length;
@@ -90,6 +90,8 @@ namespace Propitious
 
 	void RenderSystem::geometryPass()
 	{
+		OpenGL::Enable(OpenGL::TEXTURE_2D);
+		OpenGL::Enable(OpenGL::DEPTH_TEST);
 		auto& shaders = context.shaderHolder->get("deferredGeometryPass");
 
 		bind(geometryBuffer);
@@ -138,6 +140,7 @@ namespace Propitious
 
 			OpenGL::DepthMask(OpenGL::FALSE_);
 			OpenGL::Enable(OpenGL::BLEND);
+			OpenGL::Enable(OpenGL::TEXTURE_2D);
 			OpenGL::BlendFunc(OpenGL::ONE, OpenGL::ONE);
 
 			renderAmbientLight();
@@ -146,6 +149,7 @@ namespace Propitious
 			renderSpotLights();
 
 			OpenGL::Disable(OpenGL::BLEND);
+			OpenGL::DepthMask(OpenGL::TRUE_);
 		}
 
 		unbind<RenderTexture>();

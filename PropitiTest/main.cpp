@@ -65,141 +65,6 @@ namespace GameImp
 
 	static void update(Time dt)
 	{
-		/*
-		bEngine::update();
-		g_rootNode.update(dt);
-
-		SceneNode* player = g_rootNode.findChildByName("Player");
-		SceneNode* partner = g_rootNode.findChildByName("PlayerPartner");
-
-
-		g_renderer.update();
-
-		#ifdef DEBUG
-
-		if (Input::getKey(Key::Num1))
-		{
-		g_renderMode = Final;
-		}
-
-		if (Input::getKey(Key::Num2))
-		{
-		g_renderMode = Lighting;
-		}
-
-		if (Input::getKey(Key::Num3))
-		{
-		g_renderMode = Normal;
-		}
-
-		if (Input::getKey(Key::Num4))
-		{
-		g_renderMode = Diffuse;
-		}
-
-		if (Input::getKey(Key::Num5))
-		{
-		g_renderMode = Specular;
-		}
-
-		if (Input::getKey(Key::Num6))
-		{
-		g_renderMode = Depth;
-		}
-
-		#endif
-
-
-		{
-
-		if (Input::getKey(Key::Escape))
-		running = false;
-
-		if (Input::getKey(Key::F11))
-		{
-		g_window.setFullscreen(FullscreenMode::Fullscreen);
-
-		}
-
-		#ifdef DEBUG
-		if (Input::getKey(Key::R))
-		{
-		if (debugCamera == false)
-		{
-		g_renderer.currentCamera = &g_debugCamera;
-		player->getComponent<PlayerControlled>().controlsActive = false;
-		debugCamera = true;
-		}
-		else
-		{
-		g_renderer.currentCamera = &g_normalCamera;
-		player->getComponent<PlayerControlled>().controlsActive = true;
-		debugCamera = false;
-		}
-		}
-
-		if (debugCamera)
-		{
-		float cameraspeed = dt.asSeconds();
-		Vector3 g_direction = { 0, 0, 0 };
-
-		if (Input::getKey(Key::W))
-		{
-		g_direction += forward(g_debugCamera);
-		}
-
-		if (Input::getKey(Key::S))
-		{
-		g_direction += backwards(g_debugCamera);
-		}
-
-		if (Input::getKey(Key::LeftShift))
-		{
-		g_direction += {0, -1, 0};
-		}
-
-		if (Input::getKey(Key::Space))
-		{
-		g_direction += {0, 1, 0};
-		}
-
-		if (Input::getKey(Key::A))
-		{
-		g_direction += left(g_debugCamera);
-		}
-		if (Input::getKey(Key::D))
-		{
-		g_direction += right(g_debugCamera);
-		}
-
-		if (length(g_direction) > 0)
-		g_direction = normalize(g_direction);
-
-		position(g_debugCamera) += cameraspeed * g_direction * 10;
-
-		Dimensions windowSize = g_window.getSize();
-		Vector2 cPos = Input::getCursorPosition();
-
-		const f32 mouseSensitivity = 0.6f;
-
-		offsetOrientation(g_debugCamera, mouseSensitivity * Radian(-(cPos.x - windowSize.width / 2) * dt.asSeconds()),
-		mouseSensitivity * Radian(-(cPos.y - windowSize.height / 2) * dt.asSeconds()));
-
-		#ifdef BGAME_SYSTEM_WINDOWS
-		Input::setCursorPosition(Vector2{ static_cast<f32>(windowSize.width / 2), static_cast<f32>(windowSize.height / 2) });
-		#endif
-
-		}
-		#endif
-		}
-		// (player.transform.position.x > -0.1f && player.transform.position.x < 0.1f)
-		if (player)
-		{
-		g_normalCamera.transform.position.x = lerp(g_normalCamera.transform.position.x, player->transform.position.x, dt.asSeconds());
-
-		g_normalCamera.transform.position.y = lerp(g_normalCamera.transform.position.y, player->transform.position.y + 2, dt.asSeconds() * 2);
-		}
-		*/
 	}
 
 	static void loadMaterials()
@@ -217,18 +82,6 @@ namespace GameImp
 
 	static void throwShaderCompileError()
 	{
-		/*bEngine::throwError("Computer says 'No'...",
-			"Oh noes! A shader failed to compile... \n\n"
-			"Your download probably failed and the file is corrupt or you've been mucking about with our shaders...\n"
-			"How do you expect us to display the amazing graphics we spent hours on without working shaders?\n"
-			"If you have been mucking around with our shaders, we assure you there is no possible way to improve on our shaders... Ok, maybe that's a lie.\n\n"
-			"Try revalidating your game, that usually helps out here...\n"
-			"If that doesn't fix it, please post on the game forums or Google around, you might find a solution; either method works.\n\n"
-			"All other error messages have a meaningless error code so here's a bunch of random numbers that will help you with nothing:\n"
-			"1763512fx00c\n"
-			"Oh! We added some random f's, x's and c's in there just to make it more professional like the ones you get on BSoDs to make it seem scary.\n"
-			"It's not actually bad so don't be afraid... Just follow the advice, yeah... That should fix it."
-			);*/
 	}
 
 	static void loadShaders()
@@ -301,79 +154,6 @@ namespace GameImp
 
 	static void loadScene()
 	{
-		/*
-		{
-		auto player = make_unique<SceneNode>();
-
-		player->name = "Player";
-		player->addComponent<MeshRenderer>(g_sprite);
-		player->addComponent<PlayerControlled>();
-		player->transform.position = { 0,0,0 };
-		player->transform.scale = { 1,1,1 };
-
-		auto partner = make_unique<SceneNode>();
-
-		partner->name = "PlayerPartner";
-		partner->addComponent<MeshRenderer>(g_sprite);
-		partner->addComponent<Sprite>(g_renderer);
-		partner->addComponent<PlayerPartner>(player.get());
-		partner->transform.position = { 0,0,0 };
-		partner->transform.scale = { 1,0.5,1 };
-
-		g_rootNode.attachChild(std::move(player));
-		g_rootNode.attachChild(std::move(partner));
-		}
-
-		generateWorld();
-
-		g_alight.brightness = 1.00f;
-		g_alight.colour = Colour{ static_cast<u8>(0.169f * 255), static_cast<u8>(0.188f * 255), static_cast<u8>(0.231f * 255) };
-
-		{
-		DirectionalLight light;
-		light.brightness = 0.5f;
-		light.colour = Colour{ 255, 255, 250 };
-		light.direction = Vector3{ -1.0f, -1.0f, 0.5f };
-
-		g_directionalLights.push_back(light);
-		}
-
-
-		{
-		PointLight light;
-		light.position = Vector3{ 0, 3, 0 };
-		light.colour = Colour{ 255, 214, 170 };
-		light.brightness = 10.0f;
-
-		g_pointLights.push_back(light);
-		}
-
-
-		{
-		SpotLight light;
-		light.brightness = 2.0f;
-		light.colour = Colour{ 255, 255, 250 };
-		light.direction = Vector3{ 0, -1, 0 };
-		light.position = Vector3{ 3, 3, 3 };
-
-		g_spotLights.push_back(light);
-		}
-
-
-		Vector3& camPos = g_normalCamera.transform.position;
-
-		camPos = { 0, 2, 7 };
-		g_renderer.gamma = 1.0f / 2.0f;
-
-		lookAt(g_normalCamera, Vector3{ 0,0,0 });
-		g_normalCamera.projectionType = ProjectionType::Perspective;
-		g_normalCamera.fieldOfView = Degree(75.0f);
-		#ifdef DEBUG
-		lookAt(g_debugCamera, Vector3{ 0,0,0 });
-		g_debugCamera.projectionType = ProjectionType::Perspective;
-		g_debugCamera.fieldOfView = Degree(90.0f);
-		#endif
-		*/
 
 		PointLight light;
 		light.position = Vector3{ 0, 3, 0 };
@@ -385,53 +165,6 @@ namespace GameImp
 
 	static void render()
 	{
-
-		/*g_renderer.clear();
-		g_renderer.addDrawable(g_rootNode);
-
-		for (const auto& light : g_pointLights)
-		g_renderer.addPointLight(&light);
-		for (const auto& light : g_directionalLights)
-		g_renderer.addDirectionalLight(&light);
-		for (const auto& light : g_spotLights)
-		g_renderer.addSpotLight(&light);
-
-		g_renderer.setAmbientLight(&g_alight);
-
-		//Vector2 fbSize = Window::getFramebufferSize();
-		Dimensions windowSize = g_window.getSize();
-
-		create(g_renderer.gBuffer, windowSize.width, windowSize.height);
-
-		g_renderer.geometryPass();
-		g_renderer.lightPass();
-		g_renderer.outPass();
-
-		bEngine::clear(windowSize.width, windowSize.height);
-
-		auto& shaders = context.shaderHolder->get("target");
-
-		shaders.use();
-		shaders.setUniform("u_tex", 0);
-
-		#ifdef DEBUG
-		switch (g_renderMode)
-		{
-		case(Final) : bind(g_renderer.outTexture.colourTexture, 0);			break;
-		case(Lighting) : bind(g_renderer.lightingTexture.colourTexture, 0);	break;
-		case(Normal) : bind(g_renderer.gBuffer.normal, 0);					break;
-		case(Diffuse) : bind(g_renderer.gBuffer.diffuse, 0);					break;
-		case(Specular) : bind(g_renderer.gBuffer.specular, 0);					break;
-		case(Depth) : bind(g_renderer.gBuffer.depth, 0);					break;
-		}
-		#else
-		Texture::bind(&g_renderer.outTexture.colourTexture, 0);
-		#endif
-
-		g_renderer.draw(&context.meshHolder->get("quad"));
-
-		g_window.display();*/
-
 		g_world->render();
 		g_window.display();
 	}
@@ -483,7 +216,7 @@ void Test()
 	NodeId c = world.sceneGraph.create(crate, t2);
 
 	world.renderSystem.create(p, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("cat") });
-	world.renderSystem.create(c, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("default") });
+	//world.renderSystem.create(c, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("default") });
 }
 
 
