@@ -20,6 +20,7 @@ namespace Propitious
 			OpenGL::EnableVertexAttribArray((u32)AttribLocation::TexCoord);
 			OpenGL::EnableVertexAttribArray((u32)AttribLocation::Colour);
 			OpenGL::EnableVertexAttribArray((u32)AttribLocation::Normal);
+			OpenGL::EnableVertexAttribArray((u32)AttribLocation::Tangent);
 
 			OpenGL::BlendFunc(OpenGL::ONE, OpenGL::ONE);
 		}

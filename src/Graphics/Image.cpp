@@ -52,20 +52,32 @@ namespace Propitious
 			}
 
 			u8* temporary = (u8*)(defaultAllocator().allocate(imageSize));
+			image.pixels = (u8*)(defaultAllocator().allocate(imageSize));
 
 			fread(temporary, 1, imageSize, file);
 			fclose(file);
 
+			int numBytesPerLine = image.width * 3;
+			int numBytesPerColumn = image.height * 3;
+			int paddingBytesPerLine = (4 - numBytesPerLine) & 3;
+
+			for (usize row = 0; row < image.width; row++)
+			{
+				for (usize column = 0; column < numBytesPerColumn; column++)
+				{
+					image.pixels[column * image.width + row] = temporary[column * image.width + row];
+				}
+			}
+			
 			// B -> R
 			u8 tempRGB = 0;
 			for (usize i = 0; i < imageSize; i += 3)
 			{
-				tempRGB = temporary[i];
-				temporary[i] = temporary[i + 2];
-				temporary[i + 2] = tempRGB;
+				tempRGB = image.pixels[i];
+				image.pixels[i] = image.pixels[i + 2];
+				image.pixels[i + 2] = tempRGB;
 			}
 
-			image.pixels = temporary;
 			flipVertically(image);
 
 			return true;

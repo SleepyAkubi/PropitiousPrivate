@@ -108,14 +108,17 @@ namespace Propitious
 				EntityId& entityId = data.entityId[i];
 				RenderComponent& component = data.component[i];
 
-				shaders.setUniform("u_material.diffuseMap", (u32)0);
+
+				shaders.setUniform("u_material.diffuseMap", 0);
+				shaders.setUniform("u_material.normalMap", 1);
 				shaders.setUniform("u_material.diffuseColour", component.material.diffuseColour);
 				shaders.setUniform("u_material.specularColour", component.material.specularColour);
 				shaders.setUniform("u_material.specularExponent", component.material.specularExponent);
-				shaders.setUniform("u_gamma", context.gamma);
 				// TODO: Improve below line! Maybe cache NodeIds or transforms or something?
 				shaders.setUniform("u_transform", sceneGraph.getWorldTransform(sceneGraph.getNodeId(entityId)));
+
 				setTexture(component.material.diffuseMap, 0);
+				setTexture(component.material.normalMap, 1);
 
 				draw(component.mesh);
 			}
@@ -147,9 +150,7 @@ namespace Propitious
 			renderDirectionalLights();
 			renderPointLights();
 			renderSpotLights();
-
 			OpenGL::Disable(OpenGL::BLEND);
-			OpenGL::DepthMask(OpenGL::TRUE_);
 		}
 
 		unbind<RenderTexture>();
@@ -163,17 +164,18 @@ namespace Propitious
 
 		bind(outTexture);
 		{
-			OpenGL::ClearColor(1, 1, 1, 1);
 			OpenGL::Viewport(0, 0, outTexture.width, outTexture.height);
 			OpenGL::Clear(OpenGL::COLOR_BUFFER_BIT);
 
-			auto& shaders = context.shaderHolder->get("target");
+			auto& shaders = context.shaderHolder->get("deferredOutput");
 
 			shaders.use();
 			shaders.setUniform("u_diffuse", 0);
 			shaders.setUniform("u_lighting", 1);
+			shaders.setUniform("u_gamma", context.gamma);
 
 			draw(context.meshHolder->get("quad"));
+			OpenGL::DepthMask(OpenGL::TRUE_);
 		}
 		unbind<RenderTexture>();
 	}

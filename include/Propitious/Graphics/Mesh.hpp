@@ -16,7 +16,8 @@ namespace Propitious
 		Position = 0,
 		TexCoord = 1,
 		Colour = 2,
-		Normal = 3
+		Normal = 3,
+		Tangent = 4,
 	};
 
 	class Renderer;

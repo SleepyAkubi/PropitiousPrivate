@@ -35,6 +35,7 @@ namespace Propitious
 				shaders->bindAttribLocation((u32)AttribLocation::TexCoord, "a_texCoord");
 				shaders->bindAttribLocation((u32)AttribLocation::Colour, "a_colour");
 				shaders->bindAttribLocation((u32)AttribLocation::Normal, "a_normal");
+				shaders->bindAttribLocation((u32)AttribLocation::Tangent, "a_tangent");
 			}
 
 			if (!shaders->link())

@@ -103,7 +103,6 @@ namespace Propitious
 			position = 31;
 
 		OpenGL::ActiveTexture(OpenGL::TEXTURE0 + position);
-		//OpenGL::ClientActiveTexture(OpenGL::TEXTURE0 + position);
 
 		OpenGL::Enable(OpenGL::TEXTURE_2D);
 		OpenGL::BindTexture(OpenGL::TEXTURE_2D, texture.object);

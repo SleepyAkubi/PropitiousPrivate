@@ -46,7 +46,7 @@ namespace Propitious
 	void EntityWorld::render()
 	{
 		renderSystem.clean();
-		renderSystem.frameBufferSize = { 1920, 1080 };
+		renderSystem.frameBufferSize = { 1280, 720 };
 		renderSystem.camera = &camera;
 		camera.viewportAspectRatio = (f32)renderSystem.frameBufferSize.width / (f32)renderSystem.frameBufferSize.height;
 		renderSystem.render();
@@ -60,7 +60,7 @@ namespace Propitious
 
 		shaders.setUniform("u_tex", 0);
 
-		bind(renderSystem.geometryBuffer.diffuse, 0);
+		bind(renderSystem.outTexture.colourTexture, 0);
 		draw(renderSystem.context.meshHolder->get("quad"));
 	}
 }

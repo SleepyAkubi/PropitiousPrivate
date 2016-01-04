@@ -9,8 +9,11 @@
 namespace Propitious {
 	struct PROPITIOUS_EXPORT Material
 	{
+		// TODO: remove pointers
 		Texture* diffuseMap = nullptr;
 		Colour diffuseColour = Colour{ 255, 255, 255, 255 };
+
+		Texture* normalMap = nullptr;
 
 		Colour specularColour = diffuseColour;
 		f32 specularExponent = 80.0f;

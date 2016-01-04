@@ -69,19 +69,27 @@ namespace GameImp
 
 	static void loadMaterials()
 	{
-		context.textureHolder->insertFromFile("default", "default.bmp", TextureFilter::Nearest);
-		context.textureHolder->insertFromFile("cat", "cat.bmp");
-		context.textureHolder->insertFromFile("stone", "stone.bmp", TextureFilter::Nearest);
-		context.textureHolder->insertFromFile("terrain", "terrain.bmp", TextureFilter::Nearest);
+		//context.textureHolder->insertFromFile("default_diffuse", "diffuse\default.bmp", TextureFilter::Nearest);
+		//context.textureHolder->insertFromFile("default_normal", "normal\default.bmp", TextureFilter::Nearest);
+		//context.textureHolder->insertFromFile("cat_diffuse", "diffuse\cat.bmp");
+		context.textureHolder->insertFromFile("grate_diffuse", "diffuse/thing.bmp");
+		context.textureHolder->insertFromFile("grate_normal", "normal/thing.bmp");
+		context.textureHolder->insertFromFile("brick_diffuse", "diffuse/brick.bmp");
+		context.textureHolder->insertFromFile("brick_normal", "normal/brick.bmp");
+		//context.textureHolder->insertFromFile("stone", "stone.bmp", TextureFilter::Nearest);
+		//context.textureHolder->insertFromFile("terrain", "terrain.bmp", TextureFilter::Nearest);
 
-		context.materialHolder->addFromComponents("default", &context.textureHolder->get("default"));
-		context.materialHolder->addFromComponents("stone", &context.textureHolder->get("stone"));
-		context.materialHolder->addFromComponents("cat", &context.textureHolder->get("cat"));
-		context.materialHolder->addFromComponents("terrain", &context.textureHolder->get("terrain"));
+		//context.materialHolder->addFromComponents("default", &context.textureHolder->get("default_diffuse"), &context.textureHolder->get("default_normal"));
+		//context.materialHolder->addFromComponents("stone", &context.textureHolder->get("stone"));
+		//context.materialHolder->addFromComponents("cat", &context.textureHolder->get("cat_diffuse"), &context.textureHolder->get("default_normal"));
+		context.materialHolder->addFromComponents("grate", &context.textureHolder->get("grate_diffuse"), &context.textureHolder->get("grate_normal"));
+		context.materialHolder->addFromComponents("brick", &context.textureHolder->get("brick_diffuse"), &context.textureHolder->get("brick_normal"));
+		//context.materialHolder->addFromComponents("terrain", &context.textureHolder->get("terrain"));
 	}
 
 	static void throwShaderCompileError()
 	{
+		__debugbreak();
 	}
 
 	static void loadShaders()
@@ -96,9 +104,9 @@ namespace GameImp
 			throwShaderCompileError();
 		if (!context.shaderHolder->insertFromFiles("deferredSpotLight", "deferredLightPass.vs", "deferredSpotLight.fs"))
 			throwShaderCompileError();
-		if (!context.shaderHolder->insertFromFiles("deferredOutput", "target.vs", "deferredOutput.fs"))
+		if (!context.shaderHolder->insertFromFiles("deferredOutput", "deferredLightPass.vs", "deferredOutput.fs"))
 			throwShaderCompileError();
-		if (!context.shaderHolder->insertFromFiles("target", "target.vs", "target.fs"))
+		if (!context.shaderHolder->insertFromFiles("target", "deferredLightPass.vs", "target.fs"))
 			throwShaderCompileError();
 	}
 
@@ -123,7 +131,7 @@ namespace GameImp
 
 		context.meshHolder->insert("sprite", std::move(sprite));
 
-		g_sprite.material = &context.materialHolder->get("cat");
+		g_sprite.material = &context.materialHolder->get("brick");
 		g_sprite.mesh = &context.meshHolder->get("sprite");
 
 		// Screen
@@ -154,13 +162,6 @@ namespace GameImp
 
 	static void loadScene()
 	{
-
-		PointLight light;
-		light.position = Vector3{ 0, 3, 0 };
-		light.colour = Colour{ 255, 214, 170 };
-		light.brightness = 10.0f;
-
-		append(g_world->renderSystem.pointLights, light);
 	}
 
 	static void render()
@@ -195,8 +196,19 @@ void Test()
 
 	world.setContext(context);
 
-	//world.sceneGraph.allocate(16);
-	//world.renderSystem.allocate(16);
+	world.sceneGraph.allocate(16);
+	world.renderSystem.allocate(16);
+	BaseLight ambLight;
+	ambLight.colour = { 25, 25, 25 };
+	ambLight.brightness = 1.0f;
+	world.renderSystem.ambientLight = ambLight;
+
+	PointLight light;
+	light.position = Vector3{ 0, 0, 0 };
+	light.colour = Colour{ 255, 214, 170 };
+	light.brightness = 5.0f;
+
+	append(g_world->renderSystem.pointLights, light);
 
 	EntityId crate = world.createEntity();
 	//EntityId player = world.createEntity();
@@ -207,17 +219,17 @@ void Test()
 	world.names[crate] = NameComponent{ "crate" };
 
 	Transform t{};
-	t.position = { 0, 0, -2 };
-	//world.camera.transform.position = { -2, 0, 0 };
+	t.position = { 0, 0, -1 };
+	world.camera.transform.position = { 1.5, 0, 0 };
 
 	//Transform t2{};
-	//t2.position = { -1, 0, 2 };
+	//t2.position = { -2, 0, -2 };
 
-	//NodeId p = world.sceneGraph.create(player, t);
+	//NodeId p = world.sceneGraph.create(player, t2);
 	NodeId c = world.sceneGraph.create(crate, t);
 
 	//world.renderSystem.create(p, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("cat") });
-	world.renderSystem.create(c, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("default") });
+	world.renderSystem.create(c, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("brick") });
 }
 
 

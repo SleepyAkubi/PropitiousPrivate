@@ -13,12 +13,14 @@ namespace Propitious
 		inline bool addFromComponents(
 			const std::string& id,
 			Texture* diffuseMap,
+			Texture* normalMap,
 			Colour diffuseColour = { 255, 255, 255, 255 },
 			f32 specularExponent = 10,
 			Colour specularColour = { 255, 255, 255, 255 })
 		{
 			auto mat = make_unique<Material>();
 			mat->diffuseMap = diffuseMap;
+			mat->normalMap = normalMap;
 			mat->diffuseColour = diffuseColour;
 			mat->specularExponent = specularExponent;
 			mat->specularColour = specularColour;
