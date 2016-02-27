@@ -29,6 +29,11 @@ namespace Propitious
 	//union Quaternion;
 	struct Transform;
 
+	struct ShaderProgram
+	{
+
+	};
+
 	class PROPITIOUS_EXPORT ShaderProgram
 	{
 	public:
@@ -75,7 +80,15 @@ namespace Propitious
 			return m_isLinked;
 		}
 
+		void setPath(const std::string& newPath)
+		{
+			m_path = newPath;
+		}
 	private:
+
+		std::string stringFromFile(const std::string& filename);
+
+		std::string m_path;
 		mutable std::map<std::string, i32> m_attribLocations;
 		mutable std::map<std::string, i32> m_uniformLocations;
 

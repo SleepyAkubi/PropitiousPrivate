@@ -3,6 +3,7 @@
 
 #include <Propitious/Common/Architectures.hpp>
 #include <Propitious/Common/BasicDefinitions.hpp>
+#include <Propitious/Common/BasicStringFunctions.hpp>
 #include <Propitious/Common/Charsets.hpp>
 #include <Propitious/Common/Compilers.hpp>
 #include <Propitious/Common/DebugOnly.hpp>
@@ -14,6 +15,8 @@
 #include <Propitious/Common/OperatingSystems.hpp>
 #include <Propitious/Common/PseudoCast.hpp>
 #include <Propitious/Common/Types.hpp>
+#include <Propitious/Debug/Assert.hpp>
+
 #include <Propitious/Memory/Allocator.hpp>
 
 #endif

@@ -47,8 +47,8 @@ namespace Propitious
 
 	PROPITIOUS_EXPORT Allocator& defaultAllocator();
 }
-
 /*
+
 #ifndef PROPITIOUS_DONT_MANAGE_MEMORY
 
 inline void* operator new(Propitious::usize size)
@@ -64,6 +64,6 @@ inline void operator delete(void* size)
 }
 
 #endif
-*/
 
+*/
 #endif

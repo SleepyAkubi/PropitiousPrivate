@@ -7,7 +7,6 @@
 #include <Propitious/Math/Functions/Matrix.hpp>
 #include <Propitious/Graphics/Transform.hpp>
 
-
 namespace Propitious
 {
 

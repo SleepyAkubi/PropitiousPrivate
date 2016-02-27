@@ -65,23 +65,59 @@ namespace GameImp
 
 	static void update(Time dt)
 	{
+		f32 dts = dt.asSeconds();
+		auto node = g_world->sceneGraph.getNodeId(1);
+		auto pos = g_world->sceneGraph.getWorldPosition(node);
+
+
+		if (Input::getKey(Key::Escape))
+			running = false;
+
+		if (Input::getKey(Key::W))
+		{
+			pos.z -= 1.0f * dts;
+		}
+		if (Input::getKey(Key::S))
+		{
+			pos.z += 1.0f * dts;
+		}
+		if (Input::getKey(Key::LeftShift))
+		{
+			pos.y -= 1.0f * dts;
+		}
+		if (Input::getKey(Key::Space))
+		{
+			pos.y += 1.0f * dts;
+		}
+		if (Input::getKey(Key::A))
+		{
+			pos.x -= 1.0f * dts;
+		}
+		if (Input::getKey(Key::D))
+		{
+			pos.x += 1.0f * dts;
+		}
+
+		g_world->sceneGraph.setLocalPosition(node, pos);
 	}
 
 	static void loadMaterials()
 	{
-		//context.textureHolder->insertFromFile("default_diffuse", "diffuse\default.bmp", TextureFilter::Nearest);
-		//context.textureHolder->insertFromFile("default_normal", "normal\default.bmp", TextureFilter::Nearest);
-		//context.textureHolder->insertFromFile("cat_diffuse", "diffuse\cat.bmp");
+		context.textureHolder->insertFromFile("default_diffuse", "diffuse/default.bmp", TextureFilter::Nearest);
+		context.textureHolder->insertFromFile("default_normal", "normal/default.bmp", TextureFilter::Nearest);
+		context.textureHolder->insertFromFile("cat_diffuse", "diffuse/cat.bmp");
 		context.textureHolder->insertFromFile("grate_diffuse", "diffuse/thing.bmp");
 		context.textureHolder->insertFromFile("grate_normal", "normal/thing.bmp");
 		context.textureHolder->insertFromFile("brick_diffuse", "diffuse/brick.bmp");
 		context.textureHolder->insertFromFile("brick_normal", "normal/brick.bmp");
-		//context.textureHolder->insertFromFile("stone", "stone.bmp", TextureFilter::Nearest);
+		context.textureHolder->insertFromFile("stone_diffuse", "diffuse/rock.bmp");
+		context.textureHolder->insertFromFile("stone_normal", "normal/rock.bmp");
 		//context.textureHolder->insertFromFile("terrain", "terrain.bmp", TextureFilter::Nearest);
 
-		//context.materialHolder->addFromComponents("default", &context.textureHolder->get("default_diffuse"), &context.textureHolder->get("default_normal"));
-		//context.materialHolder->addFromComponents("stone", &context.textureHolder->get("stone"));
-		//context.materialHolder->addFromComponents("cat", &context.textureHolder->get("cat_diffuse"), &context.textureHolder->get("default_normal"));
+		
+		context.materialHolder->addFromComponents("default", &context.textureHolder->get("default_diffuse"), &context.textureHolder->get("default_normal"));
+		context.materialHolder->addFromComponents("stone", &context.textureHolder->get("stone_diffuse"), &context.textureHolder->get("stone_normal"));
+		context.materialHolder->addFromComponents("cat", &context.textureHolder->get("cat_diffuse"), &context.textureHolder->get("default_normal"));
 		context.materialHolder->addFromComponents("grate", &context.textureHolder->get("grate_diffuse"), &context.textureHolder->get("grate_normal"));
 		context.materialHolder->addFromComponents("brick", &context.textureHolder->get("brick_diffuse"), &context.textureHolder->get("brick_normal"));
 		//context.materialHolder->addFromComponents("terrain", &context.textureHolder->get("terrain"));
@@ -166,7 +202,7 @@ namespace GameImp
 
 	static void render()
 	{
-		g_world->render();
+		g_world->render(RenderModes::Final);
 		g_window.display();
 	}
 
@@ -211,25 +247,33 @@ void Test()
 	append(g_world->renderSystem.pointLights, light);
 
 	EntityId crate = world.createEntity();
-	//EntityId player = world.createEntity();
-
-	//world.components[player] = ComponentName;
 	world.components[crate] = ComponentName;
-	//world.names[player] = NameComponent{ "Cat" };
+	EntityId player = world.createEntity();
+	world.components[player] = ComponentName;
+	EntityId cat = world.createEntity();
+	world.components[cat] = ComponentName;
+
+	world.names[player] = NameComponent{ "Cat" };
 	world.names[crate] = NameComponent{ "crate" };
 
 	Transform t{};
 	t.position = { 0, 0, -1 };
-	world.camera.transform.position = { 1.5, 0, 0 };
+	world.camera.transform.position = { 0, 0, 0 };
+	world.camera.projectionType = ProjectionType::Perspective;
 
-	//Transform t2{};
-	//t2.position = { -2, 0, -2 };
+	Transform t2{};
+	t2.position = { -2, 0, -2 };
 
-	//NodeId p = world.sceneGraph.create(player, t2);
+	Transform t3{};
+	t2.position = { 2, 0, -2 };
+
+	NodeId p = world.sceneGraph.create(player, t2);
 	NodeId c = world.sceneGraph.create(crate, t);
+	NodeId catNode = world.sceneGraph.create(cat, t3);
 
-	//world.renderSystem.create(p, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("cat") });
+	world.renderSystem.create(p, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("stone") });
 	world.renderSystem.create(c, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("brick") });
+	world.renderSystem.create(catNode, { world.renderSystem.context.meshHolder->get("sprite"), world.renderSystem.context.materialHolder->get("cat") });
 }
 
 
@@ -253,6 +297,9 @@ void init()
 		new TextureManager,
 		1.0f / 2.2f
 	};
+
+	context.shaderHolder->setPath(getPathToExe());
+	context.textureHolder->setPath(getPathToExe());
 
 	//world.sceneGraph.setLocalTransform(c, t);
 

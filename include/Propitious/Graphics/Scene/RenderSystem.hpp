@@ -36,14 +36,14 @@ namespace Propitious
 		Allocator& allocator;
 		InstanceData data;
 		HashMap<Instance> map;
-		RenderContext context;
+		RenderContext* context;
 
-		SceneGraph& sceneGraph;
+		SceneGraph* sceneGraph;
 		GeometryBuffer geometryBuffer;
 		RenderTexture lightBuffer;
 		RenderTexture outTexture;
 
-		const Camera* camera;
+		Camera* camera;
 		const ShaderProgram* currentShader;
 		const Texture* currentTexture;
 
@@ -55,32 +55,23 @@ namespace Propitious
 
 		Dimensions frameBufferSize;
 
-		//
+		RenderSystem(Allocator& allocator, RenderContext* context);
 
-		RenderSystem(Allocator& allocator, SceneGraph& scenegraph, RenderContext context);
-		~RenderSystem() = default;
+		virtual void allocate(u32 length);
+		virtual Instance create(EntityId id, const RenderComponent& component);
+		virtual void destroy(Instance id);
 
-		void allocate(u32 length);
-		Instance create(EntityId id, const RenderComponent& component);
-		void destroy(Instance id);
+		virtual Instance getInstance(EntityId id);
+		virtual bool isValid(Instance instance) const;
 
-		Instance getInstance(EntityId id);
-		bool isValid(Instance instance) const;
-		void render();
+		virtual void render() = 0;
 
-		void geometryPass();
-		void lightPass();
-		void outPass();
+		virtual void setShaders(const ShaderProgram* shaders);
+		virtual void setTexture(const Texture* texture, u32 position = 0);
 
-		void renderAmbientLight();
-		void renderDirectionalLights();
-		void renderPointLights();
-		void renderSpotLights();
+		virtual void clean();
 
-		void setShaders(const ShaderProgram* shaders);
-		void setTexture(const Texture* texture, u32 position = 0);
-
-		void clean();
+		u32 renderMode;
 	};
 }
 

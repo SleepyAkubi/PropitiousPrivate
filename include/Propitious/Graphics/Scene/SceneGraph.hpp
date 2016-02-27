@@ -76,11 +76,97 @@ namespace Propitious
 		void updateLocal(NodeId id);
 		void updateWorld(NodeId id);
 
-		Transform getLocalTransform(NodeId id) const;
-		Transform getWorldTransform(NodeId id) const;
+		Transform SceneGraph::getLocalTransform(NodeId id) const
+		{
+			return data.localTransforms[id];
+		}
 
-		void setLocalTransform(NodeId id, const Transform& t);
-		void setWorldTransform(NodeId id, const Transform& t);
+		Transform SceneGraph::getWorldTransform(NodeId id) const
+		{
+			return data.worldTransforms[id];
+		}
+
+		////////////////
+
+		Vector3 SceneGraph::getLocalPosition(NodeId id) const
+		{
+			return getLocalTransform(id).position;
+		}
+
+		Quaternion SceneGraph::getLocalOrientation(NodeId id) const
+		{
+			return getLocalTransform(id).orientation;
+		}
+
+		Vector3 SceneGraph::getLocalScale(NodeId id) const
+		{
+			return getLocalTransform(id).scale;
+		}
+
+		Vector3 SceneGraph::getWorldPosition(NodeId id) const
+		{
+			return getWorldTransform(id).position;
+		}
+
+		Quaternion SceneGraph::getWorldOrientation(NodeId id) const
+		{
+			return getWorldTransform(id).orientation;
+		}
+
+		Vector3 SceneGraph::getWorldScale(NodeId id) const
+		{
+			return getWorldTransform(id).scale;
+		}
+
+
+		void SceneGraph::setLocalTransform(NodeId id, const Transform& t)
+		{
+			data.localTransforms[id] = t;
+			updateLocal(id);
+		}
+
+		void SceneGraph::setWorldTransform(NodeId id, const Transform& t)
+		{
+			data.worldTransforms[id] = t;
+			updateWorld(id);
+		}
+
+		void SceneGraph::setLocalPosition(NodeId id, const Vector3& position)
+		{
+			data.localTransforms[id].position = position;
+			updateLocal(id);
+		}
+
+		void SceneGraph::setLocalOrientation(NodeId id, const Quaternion& orientation)
+		{
+			data.localTransforms[id].orientation = orientation;
+			updateLocal(id);
+		}
+
+		void SceneGraph::setLocalScale(NodeId id, const Vector3& scale)
+		{
+			data.localTransforms[id].scale = scale;
+			updateLocal(id);
+		}
+
+		void SceneGraph::setWorldPosition(NodeId id, const Vector3& position)
+		{
+			data.worldTransforms[id].position = position;
+			updateWorld(id);
+		}
+
+		void SceneGraph::setWorldOrientation(NodeId id, const Quaternion& orientation)
+		{
+			data.worldTransforms[id].orientation = orientation;
+			updateWorld(id);
+		}
+
+		void SceneGraph::setWorldScale(NodeId id, const Vector3& scale)
+		{
+			data.worldTransforms[id].scale = scale;
+			updateWorld(id);
+		}
+
 	};
 }
 

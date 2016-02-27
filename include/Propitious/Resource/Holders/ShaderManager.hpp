@@ -5,12 +5,13 @@
 
 #include <Propitious/Utility/File.hpp>
 
+#include <Propitious/Resource/Holders/FileInsertionTemplateManager.hpp>
 #include <Propitious/Resource/ResourceManager.hpp>
 #include <Propitious/Graphics/ShaderProgram.hpp>
 
 namespace Propitious
 {
-	class ShaderManager : public ResourceManager<ShaderProgram, std::string>
+	class ShaderManager : public FileInsertionTemplateManager<ShaderProgram, std::string>
 	{
 	public:
 		inline bool insertFromFiles(
@@ -20,13 +21,11 @@ namespace Propitious
 			bool bindDefaultAttribLocations = true)
 		{
 			auto shaders = make_unique<ShaderProgram>();
-
-			std::string foo = getPathToExe() + "/shaders/" + vertexFileName;
-
-			if (!shaders->attachShaderFromFile(ShaderType::Vertex, std::string(getPathToExe() + "/shaders/" + vertexFileName).c_str()))
+			shaders->setPath(getPath());
+			if (!shaders->attachShaderFromFile(ShaderType::Vertex, std::string(getPath() + "/shaders/" + vertexFileName).c_str()))
 				return false;
 
-			if (!shaders->attachShaderFromFile(ShaderType::Fragment, std::string(getPathToExe() + "/shaders/" + fragmentFileName).c_str()))
+			if (!shaders->attachShaderFromFile(ShaderType::Fragment, std::string(getPath() + "/shaders/" + fragmentFileName).c_str()))
 				return false;
 
 			if (bindDefaultAttribLocations)

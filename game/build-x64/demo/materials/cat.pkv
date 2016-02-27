@@ -1,0 +1,8 @@
+# Comment foo
+Texture diffuseMap = "diffuse/cat.bmp"
+Colour diffuseColour={255, 255, 255, 255}
+
+Texture normalMap="normal/default.bmp"
+
+Colour specularColour = diffuseColour
+f32 specularExponent = 80.0f

@@ -8,7 +8,7 @@
 
 namespace Propitious
 {
-	class TextureManager : public ResourceManager<Texture, std::string>
+	class TextureManager : public FileInsertionTemplateManager<Texture, std::string>
 	{
 	public:
 		inline bool insertFromFile(
@@ -18,7 +18,7 @@ namespace Propitious
 			TextureWrapMode wrapMode = TextureWrapMode::ClampToEdge)
 		{
 			auto tex = make_unique<Texture>();
-			bool loaded = loadFromFile(*tex.get(), std::string(getPathToExe() + "/textures/" + fileName).c_str(), minMagFilter, wrapMode);
+			bool loaded = loadFromFile(*tex.get(), std::string(getPath() + "/textures/" + fileName).c_str(), minMagFilter, wrapMode);
 			if (loaded)
 				return insert(id, std::move(tex));
 			return false;

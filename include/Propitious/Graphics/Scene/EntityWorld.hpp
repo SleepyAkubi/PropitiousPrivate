@@ -19,17 +19,13 @@ namespace Propitious
 		NameComponent names[MaxEntityCount];
 
 		SceneGraph sceneGraph;
-		Camera camera;
-		RenderSystem renderSystem;
 
 		EntityWorld();
-		EntityWorld(RenderContext context);
 		~EntityWorld() = default;
 		EntityId createEntity();
-		void setContext(RenderContext context);
 		bool alive(EntityId id);
 		void destroy(EntityId id);
-		void render();
+		void render(RenderSystem* renderSystem);
 	};
 }
 

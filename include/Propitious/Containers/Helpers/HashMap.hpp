@@ -3,7 +3,13 @@
 
 #include <Propitious/Containers/HashMap.hpp>
 #include <Propitious/Containers/Array.hpp>
+#include <Propitious/Containers/String.hpp>
+#include <Propitious/Debug/Assert.hpp>
 #include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <regex>
+#include <Propitious/Math/Hash.hpp>
 
 namespace Propitious
 {
@@ -65,6 +71,8 @@ namespace Propitious
 
 	template <typename T>
 	HashMap<T>::HashMap(Allocator& a);
+
+	void load(HashMap<std::string>& hashmap, const a8* path);
 
 	namespace
 	{
@@ -304,7 +312,7 @@ namespace Propitious
 	inline const T& get(const HashMap<T>& hashmap, typename HashMap<T>::Key key)
 	{
 		const vol index = findOrFail(hashmap, key);
-		assert(index != EndOf::Hash);
+		Assert(index != EndOf::Hash);
 		return hashmap.data[index].value;
 	}
 	template <typename T>
@@ -353,6 +361,41 @@ namespace Propitious
 		: hashes(a)
 		, data(a)
 	{
+	}
+
+	inline void load(HashMap<String>& hashmap, const a8* path)
+	{
+		std::ifstream file(path);
+		String line;
+		if (file.is_open())
+		{
+			while (getline(file, line))
+			{
+				i16 equalsPos = find(line, '=');
+				i16 hashCommentPos = find(line, '#');
+				i16 slashCommentPos = find(line, "//");
+
+				if (equalsPos == -1)
+					continue;
+				if (hashCommentPos != -1 && hashCommentPos < equalsPos)
+					continue;
+				if (slashCommentPos != -1 && slashCommentPos < equalsPos)
+					continue;
+				if (hashCommentPos != -1)
+					line = substring(line, 0, hashCommentPos);
+				if (slashCommentPos != -1)
+					line = substring(line, 0, slashCommentPos);
+
+				String key = substring(line, 0, equalsPos);
+				String value = substring(line, equalsPos + 1, length(line));
+
+				//key = std::regex_replace(key, std::regex("^ +| +$|( ) +"), "$1");
+				//value = std::regex_replace(value, std::regex("^ +| +$|( ) +"), "$1");
+	
+				set<String>(hashmap, hash(cString(key)), value);
+			}
+			file.close();
+		}
 	}
 
 	namespace MultiHashMap

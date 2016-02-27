@@ -56,18 +56,18 @@ namespace Propitious
 		if (!file.is_open())
 		{
 			/*bEngine::throwError("404 File not Found...",
-				"You appear to be missing the file: \n"
-				"\"" + filename + "\"\n\n"
-				"That's a shader as well or it might be a part of one like an include or something... I'm not a mind reader you know.\n"
-				"How do you expect us to display the amazing graphics we spent hours on without shaders?\n"
-				"Well if that's missing, there's probably a load more gone as well...\n\n"
-				"Try revalidating your game, that usually helps out here...\n"
-				"If that doesn't fix it, please post on the game forums or GooOpenGL::e around, you might find a solution; either method works.\n\n"
-				"All other error messages have a meaninOpenGL::ess error code so here's a bunch of random numbers that will help you with nothing:\n"
-				"17637065fx00c2334\n"
-				"Oh! We added some random f's, x's and c's in there just to make it more professional like the ones you get on BSoDs to make it seem scary.\n"
-				"It's not actually bad so don't be afraid... Just follow the advice, yeah... That should fix it."
-				);*/
+			"You appear to be missing the file: \n"
+			"\"" + filename + "\"\n\n"
+			"That's a shader as well or it might be a part of one like an include or something... I'm not a mind reader you know.\n"
+			"How do you expect us to display the amazing graphics we spent hours on without shaders?\n"
+			"Well if that's missing, there's probably a load more gone as well...\n\n"
+			"Try revalidating your game, that usually helps out here...\n"
+			"If that doesn't fix it, please post on the game forums or GooOpenGL::e around, you might find a solution; either method works.\n\n"
+			"All other error messages have a meaninOpenGL::ess error code so here's a bunch of random numbers that will help you with nothing:\n"
+			"17637065fx00c2334\n"
+			"Oh! We added some random f's, x's and c's in there just to make it more professional like the ones you get on BSoDs to make it seem scary.\n"
+			"It's not actually bad so don't be afraid... Just follow the advice, yeah... That should fix it."
+			);*/
 		}
 		else
 		{

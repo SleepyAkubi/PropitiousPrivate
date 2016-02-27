@@ -2,6 +2,7 @@
 #define PROPITIOUS_RESOURCE_RESOURCEMANAGER_HPP
 
 #include <Propitious/Common.hpp>
+#include <Propitious/Containers/hashmap.hpp>
 
 #include <memory>
 #include <map>
@@ -33,9 +34,7 @@ namespace Propitious
 				return false;
 
 			auto inserted = m_resources.insert(std::make_pair(id, std::move(resource)));
-#ifdef DEBUG
-			assert(inserted.second);
-#endif
+			Assert(inserted.second);
 
 			return true;
 		}
@@ -105,21 +104,18 @@ namespace Propitious
 		Resource& get(Identifier id)
 		{
 			auto found = m_resources.find(id);
-#ifdef DEBUG
-			assert(found != m_resources.end());
-#endif
+			Assert(found != m_resources.end());
 			return *found->second;
 		}
 		const Resource& get(Identifier id) const
 		{
 			auto found = m_resources.find(id);
-#ifdef DEBUG
-			assert(found != m_resources.end());
-#endif
+			Assert(found != m_resources.end());
 			return *found->second;
 		}
 	private:
 		std::unordered_map<Identifier, std::unique_ptr<Resource>> m_resources;
+
 	};
 }
 

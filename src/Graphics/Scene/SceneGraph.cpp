@@ -165,24 +165,4 @@ namespace Propitious
 		data.localTransforms[id] = data.worldTransforms[id] / parentTransform;
 		transformChild(id, parentTransform);
 	}
-
-	Transform SceneGraph::getLocalTransform(NodeId id) const
-	{
-		return data.localTransforms[id];
-	}
-	Transform SceneGraph::getWorldTransform(NodeId id) const
-	{
-		return data.worldTransforms[id];
-	}
-	void SceneGraph::setLocalTransform(NodeId id, const Transform& t)
-	{
-		data.localTransforms[id] = t;
-		updateLocal(id);
-	}
-
-	void SceneGraph::setWorldTransform(NodeId id, const Transform& t)
-	{
-		data.worldTransforms[id] = t;
-		updateWorld(id);
-	}
 }

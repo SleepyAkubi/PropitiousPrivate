@@ -18,6 +18,11 @@ namespace Propitious
 #define PROPITIOUS_EXPORT __declspec(dllimport)
 #endif
 
+#define EXPORT extern "C" __declspec(dllexport)
+
+#define DEFINE_CLASS(primary, base) \
+	typedef base BaseClass;
+
 #define PROPITIOUS_HASH_MURMUR
 
 #pragma warning(disable: 4067)

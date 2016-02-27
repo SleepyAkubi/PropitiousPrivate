@@ -10,6 +10,7 @@ namespace Propitious
 	{
 		InitMemory = 1,
 		InitOpenGL = 2,
+		InitAll = InitMemory | InitOpenGL
 	};
 
 	void initialise(u32 initialisers)
@@ -17,7 +18,7 @@ namespace Propitious
 		if (initialisers & (u32)Initialisers::InitMemory)
 			Implementation::initialiseMemory();
 		if (initialisers & (u32)Initialisers::InitOpenGL)
-		OpenGL::init();
+			OpenGL::init();
 	}
 }
 

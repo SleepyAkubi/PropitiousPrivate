@@ -19,6 +19,9 @@
 #include <Propitious/Graphics/Transform.hpp>
 #include <Propitious/Graphics/Vertex.hpp>
 #include <Propitious/Graphics/Window.hpp>
+#include <Propitious/Game/Game.hpp>
+#include <Propitious/Graphics/Basic/BasicRenderer.hpp>
+#include <Propitious/Graphics/Basic/WebRenderer.hpp>
 #include <Propitious/Initialise.hpp>
 #include <Propitious/Math/Angle.hpp>
 #include <Propitious/Math/Clock.hpp>
@@ -43,6 +46,8 @@
 #include <Propitious/USB/Device.hpp>
 #include <Propitious/User/Input.hpp>
 #include <Propitious/Utility/File.hpp>
+#include <Propitious/Debug/Assert.hpp>
+#include <Propitious/Utility/DLL.hpp>
 #include <Propitious/Utility/Logger.hpp>
 #include <Propitious/Utility/TickCounter.hpp>
 

@@ -28,6 +28,8 @@ namespace Propitious
 
 	PROPITIOUS_EXPORT void trim(String& string);
 
+	PROPITIOUS_EXPORT usize find(const String& string, const String& substring);
+
 	PROPITIOUS_EXPORT void resize(String& string, usize length);
 
 	PROPITIOUS_EXPORT void reserve(String& string, usize capacity);

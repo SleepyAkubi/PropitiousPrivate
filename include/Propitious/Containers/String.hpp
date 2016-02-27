@@ -7,6 +7,10 @@
 
 namespace Propitious
 {
+	namespace EndOf
+	{
+		usize String = (usize)-1;
+	}
 	struct PROPITIOUS_EXPORT String
 	{
 		Array<a8> data;

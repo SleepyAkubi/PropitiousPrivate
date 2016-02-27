@@ -97,6 +97,18 @@ namespace Propitious
 		return end(string.data);
 	}
 
+	inline usize find(const String& string, const String& sub)
+	{
+		usize subLength = length(sub);
+		for (usize i = 0; i < length(string); i++)
+		{
+			String portion = substring(string, i, i + length(sub));
+			if (portion == sub)
+				return i;
+		}
+		return -1;
+	}
+
 	inline a8& front(String& string)
 	{
 		return string.data[0];

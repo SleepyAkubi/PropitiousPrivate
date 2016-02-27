@@ -1,6 +1,7 @@
 #ifndef PROPITIOUS_UTILITY_FILE_HPP
 #define PROPITIOUS_UTILITY_FILE_HPP
 
+#include <Propitious/Common.hpp>
 #include <Windows.h>
 #include <string>
 
@@ -8,7 +9,8 @@ namespace Propitious
 {
 	namespace
 	{
-		static std::string path;
+		static std::string exePath;
+		static std::string gamePath;
 	}
 
 	inline std::string getFileDirectory(const std::string& path)
@@ -19,16 +21,28 @@ namespace Propitious
 
 	inline std::string getPathToExe()
 	{
-		if (path.empty())
+		if (exePath.empty())
 		{
 			char buffer[2048];
 			GetModuleFileName(0, buffer, 2048);
 			std::string bufferString = std::string(buffer);
-			path = getFileDirectory(bufferString);
+			exePath = getFileDirectory(bufferString);
 		}
-		return path;
+		return exePath;
 	}
 
+	/*inline std::string getPathToGame()
+	{
+		if (gamePath.empty())
+		{
+			char buffer[2048];
+			GetModuleFileName(0, buffer, 2048);
+			std::string bufferString = std::string(buffer);
+			gamePath = getFileDirectory(bufferString);
+			gamePath += 
+		}
+		return gamePath;
+	}*/
 }
 
 #endif

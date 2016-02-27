@@ -28,13 +28,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>LLVM-vs2014</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>LLVM-vs2014</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -47,7 +47,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>LLVM-vs2014</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -73,28 +73,31 @@
     <OutDir>$(SolutionDir)build\bin-$(PlatformTarget)\</OutDir>
     <IntDir>$(ProjectDir)build\bin-$(PlatformTarget)\</IntDir>
     <TargetExt>.dll</TargetExt>
-    <IncludePath>$(ProjectDir)include;$(SolutionDir)components\Core\Propitious\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(SolutionDir)components\Core\Propitious\include;$(IncludePath);C:\Users\PrestonAshton.HOME\Documents\CEF\include;C:\Users\PrestonAshton.HOME\Documents\CEF</IncludePath>
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>$(LLVMInstallDir)\lib\clang\3.7\lib\windows;$(LibraryPath);C:\Users\PrestonAshton.HOME\Documents\CEF\$(Configuration)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)build\bin-$(PlatformTarget)\</OutDir>
     <IntDir>$(ProjectDir)build\bin-$(PlatformTarget)\</IntDir>
     <TargetExt>.dll</TargetExt>
-    <IncludePath>$(ProjectDir)include;$(SolutionDir)components\Core\Propitious\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(SolutionDir)components\Core\Propitious\include;$(IncludePath);C:\Users\PrestonAshton.HOME\Documents\CEF\include;C:\Users\PrestonAshton.HOME\Documents\CEF</IncludePath>
+    <LibraryPath>$(LLVMInstallDir)\lib\clang\3.7\lib\windows;$(LibraryPath);C:\Users\PrestonAshton.HOME\Documents\CEF\$(Configuration)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)build\bin-$(PlatformTarget)\</OutDir>
     <IntDir>$(ProjectDir)build\bin-$(PlatformTarget)\</IntDir>
     <TargetExt>.dll</TargetExt>
-    <IncludePath>$(SolutionDir)components\Core\\include;$(ProjectDir)include;$(SolutionDir)components\Core\Propitious\include;$(SolutionDir)include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>$(SolutionDir)components\Core\\include;$(ProjectDir)include;$(SolutionDir)components\Core\Propitious\include;$(SolutionDir)include;$(IncludePath);C:\Users\PrestonAshton.HOME\Documents\CEF\include;C:\Users\PrestonAshton.HOME\Documents\CEF</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;C:\Users\PrestonAshton.HOME\Documents\CEF\$(Configuration)</LibraryPath>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)build\bin-$(PlatformTarget)\</OutDir>
     <IntDir>$(ProjectDir)build\bin-$(PlatformTarget)\</IntDir>
     <TargetExt>.dll</TargetExt>
-    <IncludePath>$(ProjectDir)include;$(SolutionDir)components\Core\Propitious\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(SolutionDir)components\Core\Propitious\include;$(IncludePath);C:\Users\PrestonAshton.HOME\Documents\CEF\include;C:\Users\PrestonAshton.HOME\Documents\CEF</IncludePath>
+    <LibraryPath>$(LLVMInstallDir)\lib\clang\3.7\lib\windows;$(LibraryPath);C:\Users\PrestonAshton.HOME\Documents\CEF\$(Configuration)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -106,8 +109,12 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;libcef.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)build\bin-$(PlatformTarget)\Propitious.dll" "$(SolutionDir)game\build-$(PlatformTarget)\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -123,7 +130,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;libcef.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
     <CustomBuildStep>
@@ -131,8 +138,7 @@
       </Command>
     </CustomBuildStep>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy "$(SolutionDir)build\bin-$(PlatformTarget)\Propitious.dll" "$(SolutionDir)game\build-$(PlatformTarget)\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,8 +154,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;libcef.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)build\bin-$(PlatformTarget)\Propitious.dll" "$(SolutionDir)game\build-$(PlatformTarget)\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -164,8 +174,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Ws2_32.lib;opengl32.lib;$(SolutionDir)lib\GLEW\$(PlatformTarget)\glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;libcef.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)build\bin-$(PlatformTarget)\Propitious.dll" "$(SolutionDir)game\build-$(PlatformTarget)\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Common.hpp" />
