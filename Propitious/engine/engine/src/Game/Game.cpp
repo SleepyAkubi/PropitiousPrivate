@@ -54,9 +54,9 @@ namespace Propitious
 		frameCap = true;
 		frameTime = 60.0f;
 
-		renderSystem = new DeferredRenderSystem(defaultAllocator(), &renderContext);
+		renderSystem = new RenderSystem(defaultAllocator(), renderContext);
 		renderSystem->camera = &camera;
-		renderSystem->renderMode = DeferredRenderSystem::RenderMode::Final;
+		//renderSystem->renderMode = DeferredRenderSystem::RenderMode::Final;
 	}
 
 	void GameClient::run()

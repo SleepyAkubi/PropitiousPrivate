@@ -2,7 +2,6 @@
 #define PROPITIOUS_INITIALISE_HPP
 
 #include <Propitious/Memory/Memory.hpp>
-#include <Propitious/Graphics/OpenGL.hpp>
 
 namespace Propitious
 {

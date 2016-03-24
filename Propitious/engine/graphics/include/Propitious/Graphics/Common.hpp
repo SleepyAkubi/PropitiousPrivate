@@ -1,0 +1,10 @@
+#ifndef PROPITIOUS_GRAPHICS_COMMON_HPP
+#define PROPITIOUS_GRAPHICS_COMMON_HPP
+
+#ifdef PROPITIOUS_GRAPHICS_EXPORTS
+#define PROPITIOUS_GRAPHICS_EXPORT __declspec(dllexport)
+#else
+#define PROPITIOUS_GRAPHICS_EXPORT __declspec(dllimport)
+#endif
+
+#endif
